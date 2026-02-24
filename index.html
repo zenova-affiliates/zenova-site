@@ -1,277 +1,515 @@
-<!DOCTYPE html>
+{<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TechNova | Gaming & Tech Deals</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Zenova | Beauty, Tech & Gaming Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
-{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    font-family:'Poppins', sans-serif;
-    background:#0f172a;
-    color:white;
+font-family:Poppins, sans-serif;
+background:#0f172a;
+color:white;
 }
 
+/* HEADER */
 header{
-    padding:20px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#020617;
-    box-shadow:0 0 20px rgba(0,255,255,0.2);
+padding:20px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#020617;
+box-shadow:0 0 20px rgba(168,85,247,0.3);
+position:sticky;
+top:0;
+z-index:1000;
 }
 
 .logo{
-    font-family:'Orbitron', sans-serif;
-    font-size:22px;
-    color:#00f5ff;
+font-family:Orbitron, sans-serif;
+font-size:24px;
+color:#a855f7;
 }
 
 nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:25px;
-    transition:0.3s;
+color:white;
+text-decoration:none;
+margin-left:25px;
+transition:0.3s;
+cursor:pointer;
 }
 
 nav a:hover{
-    color:#00f5ff;
+color:#a855f7;
 }
 
+/* HERO */
 .hero{
-    text-align:center;
-    padding:80px 20px;
+text-align:center;
+padding:100px 20px;
+background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1920");
+background-size:cover;
+background-position:center;
 }
 
 .hero h1{
-    font-family:'Orbitron', sans-serif;
-    font-size:42px;
-    margin-bottom:15px;
+font-size:48px;
+font-family:Orbitron;
+margin-bottom:15px;
 }
 
 .hero p{
-    color:#94a3b8;
-    margin-bottom:25px;
+color:#cbd5e1;
+margin-bottom:25px;
 }
 
 .hero button{
-    padding:12px 25px;
-    border:none;
-    background:#00f5ff;
-    color:black;
-    font-weight:600;
-    cursor:pointer;
-    border-radius:5px;
-    transition:0.3s;
+padding:14px 30px;
+border:none;
+background:#a855f7;
+color:white;
+font-weight:600;
+cursor:pointer;
+border-radius:8px;
+transition:0.3s;
 }
 
 .hero button:hover{
-    box-shadow:0 0 20px #00f5ff;
+box-shadow:0 0 20px #a855f7;
 }
 
+/* TABS */
+.tabs{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:40px;
+}
+
+.tabs button{
+padding:12px 25px;
+border:none;
+background:#1e293b;
+color:white;
+font-weight:600;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.tabs button.active{
+background:#a855f7;
+}
+
+.tabs button:hover{
+background:#a855f7;
+}
+
+/* SECTION */
+.section{
+padding:60px 5%;
+display:none;
+}
+
+.section.active{
+display:block;
+}
+
+.section h2{
+text-align:center;
+margin-bottom:40px;
+font-size:32px;
+font-family:Playfair Display;
+color:#a855f7;
+}
+
+/* PRODUCTS GRID */
 .products{
-    width:90%;
-    max-width:1200px;
-    margin:50px auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
 }
 
+/* CARD */
 .card{
-    background:#1e293b;
-    border-radius:10px;
-    overflow:hidden;
-    transition:0.3s;
-    box-shadow:0 0 15px rgba(0,255,255,0.1);
+background:#1e293b;
+border-radius:12px;
+overflow:hidden;
+transition:0.3s;
+box-shadow:0 0 15px rgba(168,85,247,0.2);
 }
 
 .card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 0 25px #00f5ff;
+transform:translateY(-10px);
+box-shadow:0 0 25px #a855f7;
 }
 
 .card img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
+width:100%;
+height:220px;
+object-fit:cover;
 }
 
 .card-content{
-    padding:20px;
+padding:20px;
 }
 
 .card-content h3{
-    margin-bottom:10px;
+margin-bottom:10px;
 }
 
 .card-content p{
-    font-size:14px;
-    color:#94a3b8;
-    margin-bottom:15px;
+color:#94a3b8;
+font-size:14px;
+margin-bottom:10px;
 }
 
 .price{
-    font-weight:600;
-    margin-bottom:15px;
+color:#a855f7;
+font-weight:600;
+margin-bottom:15px;
 }
 
 .btn{
-    display:inline-block;
-    padding:10px 18px;
-    background:#00f5ff;
-    color:black;
-    text-decoration:none;
-    border-radius:5px;
-    font-weight:600;
-    transition:0.3s;
+display:inline-block;
+padding:10px 20px;
+background:#a855f7;
+color:white;
+text-decoration:none;
+border-radius:6px;
+transition:0.3s;
 }
 
 .btn:hover{
-    box-shadow:0 0 15px #00f5ff;
+box-shadow:0 0 15px #a855f7;
 }
 
+/* ABOUT */
+.about{
+text-align:center;
+padding:60px 20px;
+background:#020617;
+}
+
+.about h2{
+margin-bottom:15px;
+font-family:Playfair Display;
+color:#a855f7;
+}
+
+.about p{
+max-width:600px;
+margin:auto;
+color:#94a3b8;
+}
+
+/* FOOTER */
 footer{
-    text-align:center;
-    padding:20px;
-    margin-top:60px;
-    background:#020617;
-    color:#94a3b8;
+text-align:center;
+padding:20px;
+background:#020617;
+color:#94a3b8;
+margin-top:40px;
 }
-</style>
 
+</style>
 </head>
 <body>
 
 <header>
-    <div class="logo">TechNova</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#products">Gaming</a>
-        <a href="#products">Tech</a>
-        <a href="#">Reviews</a>
-    </nav>
+<div class="logo">Zenova</div>
+<nav>
+<a onclick="openSection('beauty')">Beauty</a>
+<a onclick="openSection('tech')">Tech</a>
+<a onclick="openSection('gaming')">Gaming</a>
+<a href="#about">About</a>
+</nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-    <h1>Elite Gaming & Tech Gear</h1>
-    <p>Discover top-rated products for gamers and tech lovers</p>
+<h1>Welcome to Zenova</h1>
+<p>Beauty, Tech & Gaming — All in One Place</p>
+<button onclick="openSection('beauty')">Shop Now</button>
 
-    <!-- FIXED BUTTON -->
-    <button onclick="scrollToProducts()">Shop Now</button>
+<div class="tabs">
+<button class="tab-btn active" onclick="openSection('beauty')">Beauty</button>
+<button class="tab-btn" onclick="openSection('tech')">Tech</button>
+<button class="tab-btn" onclick="openSection('gaming')">Gaming</button>
+</div>
 </section>
 
-<!-- PRODUCTS SECTION -->
-<section class="products" id="products">
+<!-- BEAUTY SECTION -->
+<section class="section active" id="beauty">
+<h2>Beauty Products</h2>
+<div class="products">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800">
+<div class="card-content">
+<h3>Luxury Face Serum</h3>
+<p>Premium skincare for glowing skin</p>
+<div class="price">$29.99</div>
+<a href="#" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/41f85bba-b3b3-4533-9f33-b0ed6a1cbbe1.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/mDNnjKj9S7B" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/5cf28654-2751-4f28-a410-f6567430330b.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/JiaAMDViAPB" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/ba46f935-de74-4468-bba6-7cfaa9affe27.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">Rs.331</div>
+<a href=" https://share.temu.com/d64lMod7mtB" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/f6ff69c8-8eb4-4dae-9d89-1beac4470597.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/zi8og73hl8B https://share.temu.com/zi8og73hl8B" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/open/ac86a6b3efb34e5ea509a6a3ee62b467-goods.jpeg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/f5707130-079b-4ab2-aa98-03a60dff3abb.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">Rs.2837</div>
+<a href=" https://share.temu.com/ymgAKWDK8FB" class="btn">Buy Now</a>
+</div>
+</div>
 
-    <div class="card">
-        <img src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_Sifu.jpg"
-            alt="Sifu">
-        <div class="card-content">
-            <h3>Sifu Epic Games Account</h3>
-            <p>High precision gaming mouse with RGB lighting</p>
-            <div class="price">$25</div>
-            <a href="#" class="btn">Buy Now</a>
-        </div>
-    </div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800">
+<div class="card-content">
+<h3>Matte Lipstick Set</h3>
+<p>Long lasting professional makeup</p>
+<div class="price">$19.99</div>
+<a href="#" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/9d17a4ca-08d6-462e-9fab-b536216afec1.jpg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="https://share.temu.com/DvJ8bsZHrvB" class="btn">Buy Now</a>
+</div>
+</div>
+  </div>
+</section>
 
-    
-    <div class="card">
-        <img src=""
-            alt="">
-        <div class="card-content">
-            <h3>RGB MOUSE</h3>
-            <p>High precision gaming mouse with RGB lighting</p>
-            <div class="price">$25</div>
-            <a href="" class="btn">Buy Now</a>
-        </div>
-    </div>
-    
-    
-    <div class="card">
-        <img src=""
-            alt="">
-        <div class="card-content">
-            <h3></h3>
-            <p></p>
-            <div class="price">$</div>
-            <a href="" class="btn">Buy Now</a>
-        </div>
-    </div>
-    
-    <div class="card">
-        <img src=""
-            alt="">
-        <div class="card-content">
-            <h3></h3>
-            <p></p>
-            <div class="price">$</div>
-            <a href="" class="btn">Buy Now</a>
-        </div>
-    </div>
-    
-    <div class="card">
-        <img src=""
-            alt="">
-        <div class="card-content">
-            <h3></h3>
-            <p></p>
-            <div class="price">$</div>
-            <a href="" class="btn">Buy Now</a>
-        </div>
-    </div>
-    
-    <div class="card">
-        <img src=""
-            alt="">
-        <div class="card-content">
-            <h3></h3>
-            <p></p>
-            <div class="price">$</div>
-            <a href="" class="btn">Buy Now</a>
-        </div>
-    </div>
-    
-    <div class="card">
-        <img src="https://img.kwcdn.com/product/fancy/061a9ef9-e1da-4160-8867-381e592eeb14.jpg?imageView2/2/w/800/q/70/format/avif" alt="Gaming Headset">
-        <div class="card-content">
-            <h3>Luxurious Wrist Watch</h3>
-            <p>Let The Luxuxry Rule Over</p>
-            <div class="price">$45</div>
-            <a href="https://temu.to/k/e4qg5ggirqh" class="btn">Buy Now</a>
-        </div>
-    </div>
+<!-- TECH SECTION -->
+<section class="section" id="tech">
+<h2>Tech Products</h2>
+<div class="products">
+<div class="card">
+<img src="https://img.kwcdn.com/product/fancy/061a9ef9-e1da-4160-8867-381e592eeb14.jpg?imageView2/2/w/800/q/70/format/avif" alt="Luxurious Wrist Watch">
+<div class="card-content">
+<h3>Luxurious Wrist Watch</h3>
+<p>Let The Luxury Rule Over</p>
+<div class="price">$45</div>
+<a href="https://temu.to/k/e4qg5ggirqh" class="btn">Buy Now</a>
+</div>
+</div>
 
-    <div class="card">
-        <img src="https://img.kwcdn.com/product/fancy/0c806d17-6a96-4ed2-b501-dd7f9e09fb85.jpg?imageView2/2/w/800/q/70/format/avif" alt="WRIST WATCH">
-        <div class="card-content">
-            <h3>Black Luxurious Watch</h3>
-            <p>Click on buy now button to view product details</p>
-            <div class="price">$60</div>
-            <a href="https://temu.to/k/eqtmqtnoyoy" class="btn">Buy Now</a>
-        </div>
-    </div>
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/23ee47f1-48b3-40af-aa4a-655c2520a05c.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/AFdBYqAWRVB" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/f03bbd6536163de93d0273b8ffcf1eb3.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/GnNHeaUevAB" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/785405df6369d7bf47e59a2d173b23fe.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/nZQDkrPiHRB" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="https://img.kwcdn.com/product/fancy/56097efe-6454-4ba5-958f-3c2a3ff12be2.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href=" https://share.temu.com/dkZhvwqDeCB" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  
+<div class="card">
+<img src="https://img.kwcdn.com/product/fancy/0c806d17-6a96-4ed2-b501-dd7f9e09fb85.jpg?imageView2/2/w/800/q/70/format/avif" alt="Black Luxurious Watch">
+<div class="card-content">
+<h3>Black Luxurious Watch</h3>
+<p>Click on buy now button to view product details</p>
+<div class="price">$60</div>
+<a href="https://temu.to/k/eqtmqtnoyoy" class="btn">Buy Now</a>
+</div>
+</div>
+</div>
+</section>
 
+<!-- GAMING SECTION -->
+<section class="section" id="gaming">
+<h2>Gaming Products</h2>
+<div class="products">
+<div class="card">
+<img src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_Sifu.jpg" alt="Sifu">
+<div class="card-content">
+<h3>Sifu Epic Games Account</h3>
+<p>Epic Games Account with Sifu</p>
+<div class="price">$25</div>
+<a href="#" class="btn">Buy Now</a>
+</div>
+</div>
+
+<div class="card">
+<img src="" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+  <div class="card">
+<img src="" alt="">
+<div class="card-content">
+<h3></h3>
+<p></p>
+<div class="price">$</div>
+<a href="" class="btn">Buy Now</a>
+</div>
+</div>
+  
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+<h2>About Zenova</h2>
+<p>
+Zenova is your premium destination for beauty, tech, and gaming products. We partner with trusted brands to bring you the best products through affiliate deals.
+</p>
 </section>
 
 <footer>
-    © 2026 TechNova. All rights reserved.
+© 2026 Zenova Store. All rights reserved.
 </footer>
 
-<!-- JAVASCRIPT FIX -->
 <script>
-function scrollToProducts() {
-    document.getElementById("products").scrollIntoView({
-        behavior: "smooth"
-    });
+function openSection(sectionId){
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    if(btn.textContent.toLowerCase() === sectionId) btn.classList.add('active');
+  });
+  document.getElementById(sectionId).scrollIntoView({behavior:'smooth'});
 }
 </script>
 
