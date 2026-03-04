@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" 
+ content="width=device-width, 
+ initial-scale=1.0">
 
 <title>Zenova | Beauty, Tech & Gaming Store</title>
 
@@ -156,7 +158,8 @@ box-shadow:0 0 25px #a855f7;
 
 .card > img{
 width:100%;
-height:220px;
+height:auto;
+max-height:220px;
 object-fit:cover;
 }
 
@@ -329,6 +332,112 @@ box-shadow:0 0 10px #0ea5e9;
   opacity:1;
   border:2px solid #a855f7;
   box-shadow:0 0 10px #a855f7;
+}
+ 
+ /* ========================= */
+/* MOBILE RESPONSIVE DESIGN */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav a {
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  .hero {
+    padding: 60px 15px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .hero button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tabs button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .section {
+    padding: 40px 15px;
+  }
+
+  .section h2 {
+    font-size: 22px;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-content h3 {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .main-image {
+    height: 200px;
+  }
+
+  .thumb {
+    width: 40px;
+    height: 40px;
+  }
+
+}
+ 
+ button, .btn, nav a {
+  -webkit-tap-highlight-color: 
+  transparent;
+}
+ 
+ body {
+  overflow-x: hidden;
+}
+ 
+ .card {
+  border: 1px solid rgba(255,255,255,0.05);
+}
+ 
+ html {
+  scroll-behavior: smooth;
 }
  
 </style>
@@ -817,7 +926,7 @@ Details
 <div class="price">Rs.719</div>
 <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601658608932" class="btn">Buy Now</a>
 </div>
-</div>(
+</div>
   
  <!-- PRODUCT 21 -->
  
