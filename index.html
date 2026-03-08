@@ -70,11 +70,7 @@ header{
   text-shadow: 0 0 14px var(--accent-glow), 0 0 40px var(--accent-glow);
   position: relative;
 }
-.logo::after{
-  content:'';
-  position:absolute; bottom:-4px; left:0; width:100%; height:2px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-}
+
 
 nav a{
   color: var(--text-muted);
@@ -88,12 +84,7 @@ nav a{
   cursor: pointer;
   position: relative;
 }
-nav a::after{
-  content:'';
-  position:absolute; bottom:-4px; left:0; width:0; height:1.5px;
-  background: var(--accent);
-  transition: width .3s;
-}
+
 nav a:hover{ color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
 nav a:hover::after{ width:100%; }
 
@@ -108,13 +99,7 @@ nav a:hover::after{ width:100%; }
     url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1920");
   background-size: cover;
   background-position: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before{
-  content:'';
-  position:absolute; inset:0;
-  background: radial-gradient(ellipse 70% 50% at 50% 80%, rgba(245,197,24,0.08) 0%, transparent 70%);
+ 
 }
 
 .hero h1{
@@ -205,12 +190,6 @@ nav a:hover::after{ width:100%; }
   text-shadow: 0 0 22px var(--accent-glow);
   letter-spacing: 2px;
   position: relative;
-}
-.section h2::after{
-  content:'';
-  display:block; width:80px; height:2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  margin: 12px auto 0;
 }
 
 /* ===========================
@@ -439,6 +418,13 @@ footer{
 
 button, .btn, nav a{ -webkit-tap-highlight-color:transparent; }
 html{ scroll-behavior:smooth; }
+  .section{
+display:none;
+}
+
+.section.active{
+display:block;
+}
 </style>
 </head>
 <body>
@@ -773,6 +759,11 @@ html{ scroll-behavior:smooth; }
 
 </div>
 </section>
+  
+  
+  
+  
+
 
 <!-- ===================== TECH SECTION ===================== -->
 <section class="section" id="tech">
@@ -1168,212 +1159,42 @@ html{ scroll-behavior:smooth; }
 <footer>
   © 2026 Zenova Store. All rights reserved.
 </footer>
-<script>
+  <script>
 
-// CHANGE PRODUCT IMAGE WHEN CLICKING THUMBNAIL
-function changeImage(element){
-
-  const gallery = element.closest(".product-gallery") || element.closest(".card");
-
-  const mainImage = gallery.querySelector(".main-image");
-
-  mainImage.src = element.src;
-
-  gallery.querySelectorAll(".thumb").forEach(img=>{
-    img.classList.remove("active");
-  });
-
-  element.classList.add("active");
-}
-
-
-// TOGGLE PRODUCT DETAILS
-function toggleDetails(button){
-
-  const card = button.closest(".card-content");
-
-  const fullDesc = card.querySelector(".full-desc");
-
-  if(fullDesc.style.display === "block"){
-    fullDesc.style.display = "none";
-    button.innerText = "Details";
-  }else{
-    fullDesc.style.display = "block";
-    button.innerText = "Hide";
-  }
-
-}
-
-
-// SWITCH BETWEEN SECTIONS
+// SECTION SWITCHING
 function openSection(sectionId){
 
-  document.querySelectorAll(".section").forEach(section=>{
-    section.classList.remove("active");
-  });
-
-  document.getElementById(sectionId).classList.add("active");
-
-
-  document.querySelectorAll(".tab-btn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  document.querySelectorAll(".tab-btn").forEach(btn=>{
-    if(btn.innerText.toLowerCase() === sectionId){
-      btn.classList.add("active");
-    }
-  });
-
-}
-
-
-function openSection(sectionId){
-
-  document.querySelectorAll('.section').forEach(sec =>
-    sec.classList.remove('active')
-  );
-
-  document.querySelectorAll('.tab-btn').forEach(btn =>
-    btn.classList.remove('active')
-  );
-
-  document.getElementById(sectionId).classList.add('active');
-
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    if(btn.textContent.toLowerCase() === sectionId){
-      btn.classList.add('active');
-    }
-  });
-
-  document.getElementById(sectionId).scrollIntoView({
-    behavior:'smooth'
-  });
-
-}
-
-
-// DETAILS BUTTON
-function toggleDetails(button){
-
-  const fullDesc = button.previousElementSibling;
-
-  if(fullDesc.style.display === "block"){
-    fullDesc.style.display = "none";
-    button.textContent = "Details";
-  }
-  else{
-    fullDesc.style.display = "block";
-    button.textContent = "Hide";
-  }
-
-}
-
-
-// IMAGE SLIDER
-function changeSlide(button, direction){
-
-  const slider = button.parentElement;
-  const images = slider.querySelectorAll("img");
-
-  let activeIndex = 0;
-
-  images.forEach((img, index) => {
-    if(img.classList.contains("active")){
-      activeIndex = index;
-      img.classList.remove("active");
-    }
-  });
-
-  let newIndex = activeIndex + direction;
-
-  if(newIndex < 0) newIndex = images.length - 1;
-  if(newIndex >= images.length) newIndex = 0;
-
-  images[newIndex].classList.add("active");
-
-}
-
-
-function changeImage(element){
-
-  const gallery = element.closest(".product-gallery");
-  const mainImage = gallery.querySelector(".main-image");
-  const thumbnails = gallery.querySelectorAll(".thumb");
-
-  // prevent blank image
-  if(element.src && element.src !== ""){
-    mainImage.src = element.src;
-  }
-
-  thumbnails.forEach(thumb => thumb.classList.remove("active"));
-
-  element.classList.add("active");
-}
-</script>
-
- <script>
-async function detectCurrency(){
-
-  const res = await fetch("https://ipapi.co/json/");
-  const data = await res.json();
-
-  const country = data.country;
-  const usdToPkr = 280;
-
-  document.querySelectorAll(".price").forEach(price => {
-
-    const usd = parseFloat(price.dataset.usd);
-
-    if(country === "PK"){
-      price.innerText = "Rs." + Math.round(usd * usdToPkr);
-    }
-    else{
-      price.innerText = "$" + usd.toFixed(2);
-    }
-
-  });
-
-}
-
-detectCurrency();
-</script>
-<script>
-
-/* SECTION SWITCHING */
-function openSection(sectionId){
-
-  const sections = document.querySelectorAll(".section");
-  const tabs = document.querySelectorAll(".tab-btn");
-
+  document.querySelectorAll(".section")
   sections.forEach(section=>{
     section.classList.remove("active");
   });
 
   document.getElementById(sectionId).classList.add("active");
 
-  tabs.forEach(btn=>{
-    btn.classList.remove("active");
+  const tabs = document.querySelectorAll(".tab-btn");
+  tabs.forEach(tab=>{
+    tab.classList.remove("active");
   });
 
-  tabs.forEach(btn=>{
-    if(btn.innerText.toLowerCase() === sectionId){
-      btn.classList.add("active");
+  tabs.forEach(tab=>{
+    if(tab.textContent.toLowerCase() === sectionId){
+      tab.classList.add("active");
     }
   });
 
   window.scrollTo({
-    top: document.getElementById(sectionId).offsetTop - 80,
+    top: document.querySelector("#"+sectionId).offsetTop - 80,
     behavior: "smooth"
   });
 
 }
 
 
-/* DETAILS TOGGLE */
+// DETAILS TOGGLE
 function toggleDetails(button){
 
-  const desc = button.parentElement.querySelector(".full-desc");
+  const card = button.closest(".card");
+  const desc = card.querySelector(".full-desc");
 
   if(desc.style.display === "block"){
     desc.style.display = "none";
@@ -1386,13 +1207,13 @@ function toggleDetails(button){
 }
 
 
-/* PRODUCT GALLERY IMAGE SWITCH */
+// IMAGE GALLERY
 function changeImage(thumb){
 
   const gallery = thumb.closest(".product-gallery");
-  const mainImage = gallery.querySelector(".main-image");
+  const main = gallery.querySelector(".main-image");
 
-  mainImage.src = thumb.src;
+  main.src = thumb.src;
 
   const thumbs = gallery.querySelectorAll(".thumb");
   thumbs.forEach(t=>t.classList.remove("active"));
@@ -1400,13 +1221,104 @@ function changeImage(thumb){
   thumb.classList.add("active");
 
 }
+<script>
+
+function openSection(sectionId){
+
+  // hide all sections
+  document.querySelectorAll(".section").forEach(section=>{
+    section.classList.remove("active");
+  });
+
+  // show selected section
+  document.getElementById(sectionId.toLowerCase()).classList.add("active");
+
+  // update active tab
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+}
+
+function toggleDetails(button){
+  const desc = button.parentElement.querySelector(".full-desc");
+
+  if(desc.style.display === "block"){
+    desc.style.display = "none";
+    button.textContent = "Details";
+  } else {
+    desc.style.display = "block";
+    button.textContent = "Hide";
+  }
+}
+
+function changeImage(img){
+  const gallery = img.closest(".product-gallery");
+  const mainImage = gallery.querySelector(".main-image");
+
+  mainImage.src = img.src;
+
+  gallery.querySelectorAll(".thumb").forEach(t=>{
+    t.classList.remove("active");
+  });
+
+  img.classList.add("active");
+}
 
 </script>
+</script>
+<script>
+
+function openSection(sectionId){
+
+  document.querySelectorAll(".section").forEach(section=>{
+    section.classList.remove("active");
+  });
+
+  document.getElementById(sectionId).classList.add("active");
+
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    if(btn.textContent.toLowerCase() === sectionId){
+      btn.classList.add("active");
+    }
+  });
+
+}
+
+function toggleDetails(button){
+  const desc = button.parentElement.querySelector(".full-desc");
+
+  if(desc.style.display === "block"){
+    desc.style.display = "none";
+    button.textContent = "Details";
+  } else {
+    desc.style.display = "block";
+    button.textContent = "Hide";
+  }
+}
+
+function changeImage(img){
+  const gallery = img.closest(".product-gallery");
+  const mainImage = gallery.querySelector(".main-image");
+
+  mainImage.src = img.src;
+
+  gallery.querySelectorAll(".thumb").forEach(t=>{
+    t.classList.remove("active");
+  });
+
+  img.classList.add("active");
+}
+
+</script>  
 </body>
 </html>
 
  
-
 
 
 
