@@ -5,592 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zenova | Beauty, Tech & Gaming Store</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-
 <style>
-
-/* ===========================
-   CSS VARIABLES — MAROON + GOLD
-   =========================== */
 :root {
-  --bg-deep:      #0d0205;
-  --bg-base:      #130308;
-  --bg-card:      #1e0510;
-  --bg-header:    #0a0103;
-  --accent:       #f5c518;       /* neon gold */
-  --accent-glow:  rgba(245,197,24,0.55);
-  --accent-soft:  rgba(245,197,24,0.15);
-  --maroon:       #6b0f1a;
-  --maroon-mid:   #8b1a28;
-  --maroon-light: #b52a3d;
-  --text-main:    #f5efe6;
-  --text-muted:   #c9a8b0;
-  --border:       rgba(245,197,24,0.18);
+  --bg-deep:#0d0205;--bg-base:#130308;--bg-card:#1e0510;--bg-header:#0a0103;
+  --accent:#f5c518;--accent-glow:rgba(245,197,24,0.55);
+  --maroon:#6b0f1a;--maroon-mid:#8b1a28;--maroon-light:#b52a3d;
+  --text-main:#f5efe6;--text-muted:#c9a8b0;--border:rgba(245,197,24,0.18);
 }
-
-*{ margin:0; padding:0; box-sizing:border-box; }
-
-body{
-  font-family: Poppins, sans-serif;
-  background: var(--bg-base);
-  color: var(--text-main);
-  overflow-x: hidden;
-}
-
-/* ── subtle grain overlay ── */
-body::before{
-  content:'';
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 180px;
-  opacity: 0.45;
-}
-
-/* ===========================
-   HEADER
-   =========================== */
-header{
-  padding: 18px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg-header);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 0 30px rgba(107,15,26,0.6), 0 0 60px rgba(245,197,24,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(6px);
-}
-
-.logo{
-  font-family: Orbitron, sans-serif;
-  font-size: 26px;
-  color: var(--accent);
-  letter-spacing: 3px;
-  text-shadow: 0 0 14px var(--accent-glow), 0 0 40px var(--accent-glow);
-  position: relative;
-}
-
-
-nav a{
-  color: var(--text-muted);
-  text-decoration: none;
-  margin-left: 28px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color .25s, text-shadow .25s;
-  cursor: pointer;
-  position: relative;
-}
-
-nav a:hover{ color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
-nav a:hover::after{ width:100%; }
-
-/* ===========================
-   HERO
-   =========================== */
-.hero{
-  text-align: center;
-  padding: 110px 20px 80px;
-  background:
-    linear-gradient(160deg, rgba(107,15,26,0.72) 0%, rgba(13,2,5,0.88) 60%),
-    url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1920");
-  background-size: cover;
-  background-position: center;
- 
-}
-
-.hero h1{
-  font-size: 52px;
-  font-family: Orbitron, sans-serif;
-  margin-bottom: 14px;
-  letter-spacing: 4px;
-  background: linear-gradient(135deg, #f5c518 30%, #fff6c0 60%, #e8a000 90%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: none;
-  filter: drop-shadow(0 0 18px rgba(245,197,24,0.5));
-}
-.hero p{
-  color: var(--text-muted);
-  margin-bottom: 28px;
-  font-size: 16px;
-  letter-spacing: 1px;
-}
-.hero button{
-  padding: 14px 36px;
-  border: 2px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-  font-weight: 700;
-  font-family: Orbitron, sans-serif;
-  font-size: 13px;
-  letter-spacing: 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background .3s, box-shadow .3s, color .3s;
-  text-transform: uppercase;
-}
-.hero button:hover{
-  background: var(--accent);
-  color: var(--bg-deep);
-  box-shadow: 0 0 28px var(--accent-glow), 0 0 60px var(--accent-glow);
-}
-
-/* ===========================
-   TABS
-   =========================== */
-.tabs{
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 44px;
-  flex-wrap: wrap;
-}
-.tabs button{
-  padding: 11px 28px;
-  border: 1.5px solid var(--maroon-mid);
-  background: rgba(107,15,26,0.25);
-  color: var(--text-muted);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all .3s;
-  font-family: Orbitron, sans-serif;
-}
-.tabs button.active,
-.tabs button:hover{
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--bg-deep);
-  box-shadow: 0 0 18px var(--accent-glow);
-}
-
-/* ===========================
-   SECTIONS
-   =========================== */
-.section{
-  padding: 70px 5%;
-  display: none;
-  position: relative;
-}
-.section.active{ display: block; }
-.section h2{
-  text-align: center;
-  margin-bottom: 50px;
-  font-size: 34px;
-  font-family: Playfair Display, serif;
-  color: var(--accent);
-  text-shadow: 0 0 22px var(--accent-glow);
-  letter-spacing: 2px;
-  position: relative;
-}
-
-/* ===========================
-   PRODUCT GRID
-   =========================== */
-.products{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 28px;
-}
-
-/* ===========================
-   CARD
-   =========================== */
-.card{
-  background: var(--bg-card);
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid rgba(107,15,26,0.6);
-  transition: transform .3s ease, box-shadow .3s ease, border-color .3s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  position: relative;
-}
-.card::before{
-  content:'';
-  position:absolute; top:0; left:0; right:0; height:2px;
-  background: linear-gradient(90deg, transparent, var(--maroon-light), transparent);
-  opacity:0;
-  transition: opacity .3s;
-}
-.card:hover{
-  transform: translateY(-10px);
-  box-shadow: 0 0 30px rgba(245,197,24,0.25), 0 0 60px rgba(107,15,26,0.4), 0 8px 40px rgba(0,0,0,0.6);
-  border-color: var(--accent);
-}
-.card:hover::before{ opacity:1; }
-
-.card > img{
-  width: 100%;
-  height: auto;
-  max-height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
-/* ===========================
-   CARD CONTENT
-   =========================== */
-.card-content{ padding: 20px; }
-.card-content h3{
-  margin-bottom: 8px;
-  font-size: 15px;
-  color: var(--text-main);
-  line-height: 1.4;
-}
-.card-content p{
-  color: var(--text-muted);
-  font-size: 13px;
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-.price{
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 14px;
-  text-shadow: 0 0 10px var(--accent-glow);
-  letter-spacing: 0.5px;
-}
-
-/* BUY NOW button */
-.btn{
-  display: inline-block;
-  padding: 9px 20px;
-  background: var(--maroon);
-  color: var(--accent);
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  border: 1px solid var(--maroon-light);
-  transition: background .3s, box-shadow .3s, border-color .3s;
-}
-.btn:hover{
-  background: var(--accent);
-  color: var(--bg-deep);
-  border-color: var(--accent);
-  box-shadow: 0 0 18px var(--accent-glow);
-}
-
-/* Details button */
-.details-btn{
-  display: inline-block;
-  margin-top: 6px;
-  margin-bottom: 10px;
-  padding: 7px 15px;
-  border: 1px solid var(--maroon-light);
-  background: transparent;
-  color: var(--maroon-light);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all .3s;
-}
-.details-btn:hover{
-  background: var(--maroon);
-  color: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 10px rgba(181,42,61,0.5);
-}
-
-.full-desc{
-  display: none;
-  color: var(--text-muted);
-  margin-top: 8px;
-  font-size: 13px;
-  line-height: 1.6;
-  border-left: 2px solid var(--maroon-mid);
-  padding-left: 10px;
-}
-
-/* ===========================
-   PRODUCT GALLERY / THUMBNAILS
-   =========================== */
-.product-gallery{ width: 100%; }
-
-.main-image{
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 8px 8px 0 0;
-  transition: transform .4s ease;
-  display: block;
-}
-.card:hover .main-image{ transform: scale(1.03); }
-
-.thumbnails{
-  display: flex;
-  gap: 6px;
-  padding: 8px 10px;
-  background: rgba(0,0,0,0.3);
-}
-.thumb{
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 4px;
-  cursor: pointer;
-  opacity: 0.55;
-  border: 2px solid transparent;
-  transition: all .25s;
-}
-.thumb:hover{ opacity: 1; transform: scale(1.08); }
-.thumb.active{
-  opacity: 1;
-  border-color: var(--accent);
-  box-shadow: 0 0 10px var(--accent-glow);
-}
-
-/* ===========================
-   ABOUT
-   =========================== */
-.about{
-  text-align: center;
-  padding: 80px 20px;
-  background: linear-gradient(180deg, var(--bg-deep) 0%, #1a040b 100%);
-  border-top: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.about::before{
-  content:'';
-  position:absolute; top:0; left:50%; transform:translateX(-50%);
-  width:600px; height:2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-}
-.about h2{
-  margin-bottom: 16px;
-  font-family: Playfair Display, serif;
-  font-size: 32px;
-  color: var(--accent);
-  text-shadow: 0 0 22px var(--accent-glow);
-}
-.about p{
-  max-width: 580px;
-  margin: auto;
-  color: var(--text-muted);
-  line-height: 1.8;
-  font-size: 15px;
-}
-
-/* ===========================
-   FOOTER
-   =========================== */
-footer{
-  text-align: center;
-  padding: 22px;
-  background: var(--bg-header);
-  color: var(--text-muted);
-  font-size: 13px;
-  border-top: 1px solid var(--border);
-  letter-spacing: 0.5px;
-}
-
-/* ===========================
-   MOBILE RESPONSIVE
-   =========================== */
-@media (max-width: 768px){
-  header{ flex-direction:column; gap:14px; padding:14px; text-align:center; }
-  nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-  nav a{ margin-left:0; font-size:13px; }
-  .hero{ padding:60px 15px 50px; }
-  .hero h1{ font-size:28px; letter-spacing:2px; }
-  .hero p{ font-size:14px; }
-  .tabs button{ padding:8px 16px; font-size:11px; }
-  .section{ padding:40px 15px; }
-  .section h2{ font-size:22px; }
-  .products{ grid-template-columns:1fr; gap:18px; }
-  .main-image{ height:200px; }
-  .thumb{ width:40px; height:40px; }
-}
-
-button, .btn, nav a{ -webkit-tap-highlight-color:transparent; }
-html{ scroll-behavior:smooth; }
-  .section{
-display:none;
-}
-
-.section.active{
-display:block;
-}
-  .search-bar{
-  width:100%;
-  max-width:420px;
-  margin:0 auto 35px auto;
-  display:block;
-  padding:12px 18px;
-  border-radius:6px;
-  border:1px solid var(--maroon-mid);
-  background:rgba(0,0,0,0.35);
-  color:var(--text-main);
-  font-size:14px;
-  outline:none;
-}
-
-.search-bar:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 12px var(--accent-glow);
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Poppins,sans-serif;background:var(--bg-base);color:var(--text-main);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:180px;opacity:0.45;}
+header{padding:18px 5%;display:flex;justify-content:space-between;align-items:center;background:var(--bg-header);border-bottom:1px solid var(--border);box-shadow:0 0 30px rgba(107,15,26,0.6),0 0 60px rgba(245,197,24,0.08);position:sticky;top:0;z-index:1000;backdrop-filter:blur(6px);}
+.logo{font-family:Orbitron,sans-serif;font-size:26px;color:var(--accent);letter-spacing:3px;text-shadow:0 0 14px var(--accent-glow),0 0 40px var(--accent-glow);}
+nav a{color:var(--text-muted);text-decoration:none;margin-left:28px;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:color .25s;cursor:pointer;}
+nav a:hover{color:var(--accent);text-shadow:0 0 12px var(--accent-glow);}
+.hero{text-align:center;padding:110px 20px 80px;background:linear-gradient(160deg,rgba(107,15,26,0.72) 0%,rgba(13,2,5,0.88) 60%),url("https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1920");background-size:cover;background-position:center;}
+.hero h1{font-size:52px;font-family:Orbitron,sans-serif;margin-bottom:14px;letter-spacing:4px;background:linear-gradient(135deg,#f5c518 30%,#fff6c0 60%,#e8a000 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 18px rgba(245,197,24,0.5));}
+.hero p{color:var(--text-muted);margin-bottom:28px;font-size:16px;letter-spacing:1px;}
+.hero button{padding:14px 36px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-weight:700;font-family:Orbitron,sans-serif;font-size:13px;letter-spacing:2px;cursor:pointer;border-radius:4px;transition:background .3s,box-shadow .3s,color .3s;text-transform:uppercase;}
+.hero button:hover{background:var(--accent);color:var(--bg-deep);box-shadow:0 0 28px var(--accent-glow),0 0 60px var(--accent-glow);}
+.tabs{display:flex;justify-content:center;gap:14px;margin-top:44px;flex-wrap:wrap;}
+.tabs button{padding:11px 28px;border:1.5px solid var(--maroon-mid);background:rgba(107,15,26,0.25);color:var(--text-muted);font-weight:600;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:all .3s;font-family:Orbitron,sans-serif;}
+.tabs button.active,.tabs button:hover{background:var(--accent);border-color:var(--accent);color:var(--bg-deep);box-shadow:0 0 18px var(--accent-glow);}
+.section{padding:70px 5%;display:none;}
+.section.active{display:block;}
+.section h2{text-align:center;margin-bottom:50px;font-size:34px;font-family:'Playfair Display',serif;color:var(--accent);text-shadow:0 0 22px var(--accent-glow);letter-spacing:2px;}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px;}
+.card{background:var(--bg-card);border-radius:10px;overflow:hidden;border:1px solid rgba(107,15,26,0.6);transition:transform .3s ease,box-shadow .3s ease,border-color .3s;box-shadow:0 4px 20px rgba(0,0,0,0.5);position:relative;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--maroon-light),transparent);opacity:0;transition:opacity .3s;}
+.card:hover{transform:translateY(-10px);box-shadow:0 0 30px rgba(245,197,24,0.25),0 0 60px rgba(107,15,26,0.4),0 8px 40px rgba(0,0,0,0.6);border-color:var(--accent);}
+.card:hover::before{opacity:1;}
+.card>img{width:100%;height:auto;max-height:220px;object-fit:cover;display:block;}
+.card-content{padding:20px;}
+.card-content h3{margin-bottom:8px;font-size:15px;color:var(--text-main);line-height:1.4;}
+.card-content p{color:var(--text-muted);font-size:13px;margin-bottom:8px;line-height:1.5;}
+.price{color:var(--accent);font-weight:700;font-size:16px;margin-bottom:14px;text-shadow:0 0 10px var(--accent-glow);}
+.btn{display:inline-block;padding:9px 20px;background:var(--maroon);color:var(--accent);text-decoration:none;border-radius:4px;font-size:13px;font-weight:600;letter-spacing:1px;border:1px solid var(--maroon-light);transition:background .3s,box-shadow .3s,border-color .3s;}
+.btn:hover{background:var(--accent);color:var(--bg-deep);border-color:var(--accent);box-shadow:0 0 18px var(--accent-glow);}
+.details-btn{display:inline-block;margin-top:6px;margin-bottom:10px;padding:7px 15px;border:1px solid var(--maroon-light);background:transparent;color:var(--maroon-light);border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:all .3s;}
+.details-btn:hover{background:var(--maroon);color:var(--accent);border-color:var(--accent);}
+.full-desc{display:none;color:var(--text-muted);margin-top:8px;font-size:13px;line-height:1.6;border-left:2px solid var(--maroon-mid);padding-left:10px;}
+.product-gallery{width:100%;}
+.main-image{width:100%;height:220px;object-fit:cover;display:block;transition:transform .4s ease;}
+.card:hover .main-image{transform:scale(1.03);}
+.thumbnails{display:flex;gap:6px;padding:8px 10px;background:rgba(0,0,0,0.3);}
+.thumb{width:48px;height:48px;object-fit:cover;border-radius:4px;cursor:pointer;opacity:0.55;border:2px solid transparent;transition:all .25s;}
+.thumb:hover{opacity:1;transform:scale(1.08);}
+.thumb.active{opacity:1;border-color:var(--accent);box-shadow:0 0 10px var(--accent-glow);}
+.search-bar{width:100%;max-width:420px;margin:0 auto 35px auto;display:block;padding:12px 18px;border-radius:6px;border:1px solid var(--maroon-mid);background:rgba(0,0,0,0.35);color:var(--text-main);font-size:14px;outline:none;}
+.search-bar:focus{border-color:var(--accent);box-shadow:0 0 12px var(--accent-glow);}
 .search-bar::placeholder{color:var(--text-muted);}
-  
-  /* ===========================
+.about{text-align:center;padding:80px 20px;background:linear-gradient(180deg,var(--bg-deep) 0%,#1a040b 100%);border-top:1px solid var(--border);position:relative;overflow:hidden;}
+.about::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.about h2{margin-bottom:16px;font-family:'Playfair Display',serif;font-size:32px;color:var(--accent);}
+.about p{max-width:580px;margin:auto;color:var(--text-muted);line-height:1.8;font-size:15px;}
+footer{text-align:center;padding:22px;background:var(--bg-header);color:var(--text-muted);font-size:13px;border-top:1px solid var(--border);}
+@media(max-width:768px){header{flex-direction:column;gap:14px;padding:14px;text-align:center;}nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;}nav a{margin-left:0;}.hero{padding:60px 15px 50px;}.hero h1{font-size:28px;}.products{grid-template-columns:1fr;}}
+button,.btn,nav a{-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+
+/* ===========================
    ADMIN PANEL
    =========================== */
-#admin-toggle{position:fixed;
-  bottom:24px;
-  right:24px;
-  z-index:9999;
-  background:var(--accent);
-  color:var(--bg-deep);
-  border:none;
-  border-radius:50px;
-  padding:12px 22px;
-  font-family:Orbitron,sans-serif;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:1px;
-  cursor:pointer;
-  box-shadow:0 0 20px var(--accent-glow);
-  transition:all .3s;}
-#admin-toggle:hover{box-shadow:0 0 40px var(--accent-glow);
-  transform:scale(1.05);
-}
-#admin-panel{display:none;
-  position:fixed;
-  inset:0;z-index:9998;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(6px);
-  justify-content:center;
-  align-items:center;}
-#admin-panel.open{display:flex;
-  
-}
-.admin-box{background:var(--bg-card);
-  border:1px solid var(--accent);
-  border-radius:12px;
-  padding:36px 32px;
-  width:100%;
-  max-width:520px;
-  max-height:90vh;
-  overflow-y:auto;
-  box-shadow:0 0 60px var(--accent-glow);
-  position:relative;
-}
-.admin-box h2{font-family:Orbitron,sans-serif;
-  font-size:18px;
-  color:var(--accent);
-  margin-bottom:24px;
-  letter-spacing:2px;
-}
-.admin-close{position:absolute;
-  top:16px;
-  right:20px;
-  background:none;
-  border:none;
-  color:var(--text-muted);
-  font-size:22px;
-  cursor:pointer;
-  line-height:1;
-}
-.admin-close:hover{color:var(--accent);
-  
-}
-.admin-field{margin-bottom:16px;
-  
-}
-.admin-field label{display:block;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:var(--text-muted);
-  margin-bottom:6px;
-}
-.admin-field input,.admin-field select,.admin-field textarea
-  {
-    width:100%;
-  padding:10px 14px;
-    background:rgba(0,0,0,0.4);
-    border:1px solid var(--maroon-mid);
-    border-radius:6px;
-    color:var(--text-main);
-    font-size:13px;
-    font-family:Poppins,sans-serif;
-    outline:none;
-    transition:border-color .25s;
-  }
-.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus
-  {
-    border-color:var(--accent);
-  }
-.admin-field textarea
-  {
-    resize:vertical;
-    min-height:70px;
-  }
-.admin-field select option{background:var(--bg-card);
-  
-}
-.add-thumb-btn{
-  
-  margin-top:6px;
-  padding:6px 14px;
-  background:transparent;
-  border:1px solid var(--maroon-light);
-  color:var(--maroon-light);
-  border-radius:4px;
-  font-size:12px;
-  cursor:pointer;
-  transition:all .25s;
-}
-.add-thumb-btn:hover{
-  background:var(--maroon);
-    color:var(--accent);
-    border-color:var(--accent);
-  }
-.admin-submit{
-  width:100%;
-  padding:12px;
-  background:var(--accent);
-  color:var(--bg-deep);
-  border:none;
-  border-radius:6px;
-  font-family:Orbitron,sans-serif;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:1px;
-  cursor:pointer;
-  margin-top:8px;
-  transition:box-shadow .3s;
-}
-.admin-submit:hover{
-  box-shadow:0 0 24px var(--accent-glow);
-}
-.admin-msg{
-  text-align:center;
-  margin-top:12px;
-  font-size:13px;
-  color:var(--accent);
-  display:none;
-}
-  
+#admin-toggle{display:none;}/* hidden — open with Ctrl+Shift+A */
+#admin-panel{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);justify-content:center;align-items:center;}
+#admin-panel.open{display:flex;}
+.admin-box{background:var(--bg-card);border:1px solid var(--accent);border-radius:12px;padding:36px 32px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 0 60px var(--accent-glow);position:relative;}
+.admin-box h2{font-family:Orbitron,sans-serif;font-size:18px;color:var(--accent);margin-bottom:24px;letter-spacing:2px;}
+.admin-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text-muted);font-size:22px;cursor:pointer;line-height:1;}
+.admin-close:hover{color:var(--accent);}
+.admin-field{margin-bottom:16px;}
+.admin-field label{display:block;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.admin-field input,.admin-field select,.admin-field textarea{width:100%;padding:10px 14px;background:rgba(0,0,0,0.4);border:1px solid var(--maroon-mid);border-radius:6px;color:var(--text-main);font-size:13px;font-family:Poppins,sans-serif;outline:none;transition:border-color .25s;}
+.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--accent);}
+.admin-field textarea{resize:vertical;min-height:70px;}
+.admin-field select option{background:var(--bg-card);}
+.add-thumb-btn{margin-top:6px;padding:6px 14px;background:transparent;border:1px solid var(--maroon-light);color:var(--maroon-light);border-radius:4px;font-size:12px;cursor:pointer;transition:all .25s;}
+.add-thumb-btn:hover{background:var(--maroon);color:var(--accent);border-color:var(--accent);}
+.admin-submit{width:100%;padding:12px;background:var(--accent);color:var(--bg-deep);border:none;border-radius:6px;font-family:Orbitron,sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;margin-top:8px;transition:box-shadow .3s;}
+.admin-submit:hover{box-shadow:0 0 24px var(--accent-glow);}
+.admin-msg{text-align:center;margin-top:12px;font-size:13px;color:var(--accent);display:none;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">Zenova</div>
   <nav>
@@ -602,891 +100,144 @@ display:block;
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Welcome to Zenova</h1>
-  <p>Beauty, Tech & Gaming — All in One Place</p>
+  <p>Beauty, Tech &amp; Gaming — All in One Place</p>
   <button onclick="openSection('home')">Shop Now</button>
-  
   <div class="tabs">
-    
     <button class="tab-btn" onclick="openSection('beauty')">Beauty</button>
     <button class="tab-btn" onclick="openSection('tech')">Tech</button>
     <button class="tab-btn" onclick="openSection('gaming')">Gaming</button>
   </div>
 </section>
-  <!-- HOME -->
-  <section class="section active" id="home">
-<h2>All Products</h2>
-<input type="text" class="search-bar" placeholder="Search products" 
- onkeydown="if(event.key==='Enter') searchProducts(this)"
-  oninput="if(this.value==='') searchProducts(this)">
-<div class="products" id="home-products"></div>
-  </section>
-<!-- PRODUCTS WILL BE AUTO COPIED HERE -->
 
-
-
-
-  
-<!-- ===================== BEAUTY SECTION ===================== -->
-<section class="section" id="beauty">
-<h2>Beauty Products</h2>
-<input type="text" class="search-bar" placeholder="Search products)"
-  onkeydown="if(event.key==='Enter') searchProducts(this)"
-  oninput="if(this.value==='') searchProducts(this)">
-  <div class="products">
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/c6c11aec-30ce-4a25-b5e2-18d8b9fb6d12.jpg?imageView2/2/w/1300/q/90/format/avif">
-    <div class="card-content">
-      <h3>NAILS FOR EASTER</h3>
-      <p class="short-desc">24pcs Easter Theme Fake Nail Set, Macaron Bunny Design,</p>
-      <p class="full-desc">Glossy Finish, 12 Sizes with Jelly Glue and Nail File, Artistic False Nails for s and Women</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.531</div>
-      <a href="https://share.temu.com/p4VuXYgXsEB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/41f85bba-b3b3-4533-9f33-b0ed6a1cbbe1.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>King Love Beauty</h3>
-      <p class="short-desc">Vitamin C Sunscreen with SPF60, waterproof and moisturizing.</p>
-      <p class="full-desc">150g Vitamin C Sunscreen, Broad Spectrum SPF60PA+++, Suitable for Dry and Oily Skin, Moisturizing Formula, Waterproof Protection, Long-lasting sun defense for daily use.</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.2755</div>
-      <a href="https://share.temu.com/mDNnjKj9S7B" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/5cf28654-2751-4f28-a410-f6567430330b.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>Clarity Isolation Protection Cream</h3>
-      <p class="short-desc">Clear And Non-Irritating Isolation Protection,</p>
-      <p class="full-desc">Essential for Going Out, Moisturizing And Clear Facial Sunscreen</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.983</div>
-      <a href="https://share.temu.com/JiaAMDViAPB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/ba46f935-de74-4468-bba6-7cfaa9affe27.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>Red Cat Eye Fake Nails</h3>
-      <p class="short-desc">10pcs of Red Cat-Eye Short Square Fake Nails,</p>
-      <p class="full-desc">Glossy Acrylic Nails, Reusable Acrylic Home Nails Suitable for Autumn And Winter Nail Decoration</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.331</div>
-      <a href="https://share.temu.com/d64lMod7mtB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/f6ff69c8-8eb4-4dae-9d89-1beac4470597.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>Easter Bunny False Nails</h3>
-      <p class="short-desc">24pcs Easter Pastel Bunny False Nails,</p>
-      <p class="full-desc">Polka Dot Stripe Cute Artificial Nails, Suitable for Women's Spring and Summer Decorative Styling</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.682</div>
-      <a href="https://share.temu.com/zi8og73hl8B" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/open/ac86a6b3efb34e5ea509a6a3ee62b467-goods.jpeg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1" alt="">
-    <div class="card-content">
-      <h3>European Style Short Square Easter Nails</h3>
-      <p class="short-desc">24pcs European Style Short Square Easter Nails,</p>
-      <p class="full-desc">Cute Bunny and Pink Heart Design Press-On Nails with White Stripes, Simple and Stylish Fake Nails Suitable for Women's Dating and Daily Wear</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.612</div>
-      <a href="https://share.temu.com/h4JrYckOkYB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/f5707130-079b-4ab2-aa98-03a60dff3abb.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>Tanning Oil</h3>
-      <p class="short-desc">100Ml Coconut Tanning Oil, Waterproof And Long-Lasting Tan,</p>
-      <p class="full-desc">Suitable for Indoor Use, with Moisturizing And Hydrating Properties. Comes in a Spray Bottle And Flip-Top for Easy And Convenient Carrying, Free from Oxybenzone</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.2837</div>
-      <a href="https://share.temu.com/ymgAKWDK8FB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/d0dd8771-805b-4fb1-b44e-807d29295ff8.jpg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1">
-    <div class="card-content">
-      <h3>Easter Themed Short Square Press-On Nails</h3>
-      <p class="short-desc">24pcs Easter Themed Short Square Press-On Nails Set,</p>
-      <p class="full-desc">Mixed Color Animal Pattern, Glossy Finish, Full Coverage Fake Nails with Nail File &amp; Jelly Gel, Cute Egg &amp; Chick Design for Daily Wear</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.778</div>
-      <a href="https://share.temu.com/jbflClZDmoB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/9d17a4ca-08d6-462e-9fab-b536216afec1.jpg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1" alt="">
-    <div class="card-content">
-      <h3>Tanning Oil Natural Coconut Oil</h3>
-      <p class="short-desc">Instant Blackening with a Single Swipe, Long-Lasting Color Fixation</p>
-      <p class="full-desc">Natural Coconut Oil Bronzing Tropical Self-Tanning Oil 30ml, Enriched with Natural Coconut Oil. Features a Refreshing, Easily Absorbed Texture. Provides Instant Color in 8 Seconds</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.1373</div>
-      <a href="https://share.temu.com/DvJ8bsZHrvB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/Hf66ff37ad0ce4142817b4d1086d170dbD.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Press On Nails</h3>
-      <p class="short-desc">W821 Pastel Press on Nails Easter Spring Soft Colors Discounted</p>
-      <p class="full-desc"></p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.258</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601164459006" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H26644f50f63e432eafe2cec9e86a72849.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Short Square Press on Nails Soft Gel Handmade</h3>
-      <p class="short-desc">Wholesale Custom Logo Short Square Press on Nails</p>
-      <p class="full-desc">Soft Gel Handmade French Tip Nails Kit for Manicure Beauty Nail Art Sticker</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.1408</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601690117848" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H5be7ab10764e43e588f27625ab7237031.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/Hdab4569fa181479ca6233248d078b718S.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hbd4152a9f1994e5d8136d7afaa5f1054h.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H42dd3e302d9c419b89f1d3317ea6cc68k.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H5be7ab10764e43e588f27625ab7237031.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Pure Polish Gel Nail Stickers</h3>
-      <p class="short-desc">100% Pure Polish Gel Nail Stickers New</p>
-      <p class="full-desc">Technique UV Bake Easy Application Without Gel Easter Used Strip Nail Product</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.490</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601164459006" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H08d9c1cbd152437185ae47fef6b76b1cS.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/Ha65b6fc437094bbd84622d5ac793490aw.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H4c8e654dcfb346178074285c93a8e542F.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hbb9e9cfbff1b40aeab8a0842c31bde6da.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H08d9c1cbd152437185ae47fef6b76b1cS.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Reusable False Nails</h3>
-      <p class="short-desc"></p>
-      <p class="full-desc">Wholesale High Quality Reusable False Nails Artificial Nails</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.95</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601245722136" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/Hd2852a0a683a4ae69baf69906680ddacS.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/Hb46959444a03440482274c69af2a5bf2D.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H57cd010c3e5c49b79f10cae73c5458d4g.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hd2852a0a683a4ae69baf69906680ddacS.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Saint Patrick's Day Nail Decals</h3>
-      <p class="short-desc">New Spring 3D Plastic Four-leaf Clover</p>
-      <p class="full-desc">Clover Laser Nail Art Sticker Decal with Self-adhesive Design Saint Patrick's Day Nail Decals</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.79</div>
-      <a href="" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H1d2213e1d17e42d3b64cde39adbeaf76b.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Natural Keratin Hair Treatment</h3>
-      <p class="short-desc">Brazilian Natural Keratin Hair Treatment</p>
-      <p class="full-desc">Wholesale by Carton 800ml Hair Smoothing Cream Product</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.20,241</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601418772610" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/Hccefdd6833904838b6b72625e13233ecy.png?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Brazilian Straightening Keratin</h3>
-      <p class="short-desc">Brazilian Straightening Keratin Treatment</p>
-      <p class="full-desc">Brazilian Straightening Keratin Treatment for Hair Without Formaldehyde Hair Care Straighten Product Manufacturer</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.4705</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1600770633202" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H23f7a5c36f1b4c58a6648e771ecd1dc65.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>OEM Waterproof Root Touch up Hair</h3>
-      <p class="short-desc">OEM Waterproof Root Touch up Hair</p>
-      <p class="full-desc">Dye Stick 2 in 1 Comb &amp; Color Quick Gray Hair Cover Up, Ammonia Free Portable</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.258</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601594093666" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H0011b1e1158b45fbad3b4aecdca6fa7bX.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Hydrolyzed Keratin Hair Care</h3>
-      <p class="short-desc">MOCHEQI Wholesale Factory Latest Hydrolyzed</p>
-      <p class="full-desc">Keratin Hair Care Hair Mask for Hair Repair Nourishment and Rejuvenation</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.534</div>
-      <a href="https://offer.alibaba.com/cps/3c8koa1s?bm=cps&src=saf" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/Hd72be7a87f524e41b826989e25d84680J.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Keratin Complex Smoothing Therapy</h3>
-      <p class="short-desc">Organic Formaldehyde-Free Keratin</p>
-      <p class="full-desc">Complex Smoothing Therapy Safe Cosmetics for Nourishment Beauty Hyaluronic Acid Hair Product</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.4705</div>
-      <a href="https://offer.alibaba.com/cps/utoo2oun?bm=cps&src=saf" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/Hf478ba7c77f34b5e83ca0a5fa26989a7k.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>OEM Coconut Oil</h3>
-      <p class="short-desc">OEM Coconut Oil Hair &amp; Scalp Treatment</p>
-      <p class="full-desc">Oil-Anti-Dandruff Damaged Hair Repair &amp; Nourishing</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.719</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601658608932" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H6c4a7006354d487890e4a19212aa92b4S.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>OEM Shampoo</h3>
-      <p class="short-desc">OEM Shampoo Manufacturers</p>
-      <p class="full-desc">Rosemary Extract Peppermint Oil Refreshing Oil-Control Rosemary Shampoo</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.703</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601661844082" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H530ea104003c43f2a6ddf75246b2e306i.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Rose Hair Loss Regrowth Care Oil</h3>
-      <p class="short-desc">Customize Hair Organic Rose Hair</p>
-      <p class="full-desc">Loss Regrowth Care Oil Bulk for Black Women Fast Argan Hair Repairing Growth Oil Products</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.1224</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601558398841" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/H8f83b699c6c644b99904a3d298e4f452a.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Hair Dye Permanent Hair Color</h3>
-      <p class="short-desc">Organic Professional Salon</p>
-      <p class="full-desc">Professional Hair Dye Permanent Hair Color</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.314</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601252719587" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-</div>
-</section>
-  
-  
-  
-  
-
-
-<!-- ===================== TECH SECTION ===================== -->
-<section class="section" id="tech">
-<h2>Tech Products</h2>
-  <input type="text" class="search-bar" placeholder="Search products)"
+<!-- HOME -->
+<section class="section active" id="home">
+  <h2>All Products</h2>
+  <input type="text" class="search-bar" placeholder="Search products... (press Enter to search)"
     onkeydown="if(event.key==='Enter') searchProducts(this)"
     oninput="if(this.value==='') searchProducts(this)">
-<div class="products">
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/061a9ef9-e1da-4160-8867-381e592eeb14.jpg?imageView2/2/w/800/q/70/format/avif" alt="Luxurious Wrist Watch">
-    <div class="card-content">
-      <h3>Luxurious Wrist Watch</h3>
-      <p class="short-desc"></p>
-      <p class="full-desc"></p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.1078</div>
-      <a href="https://temu.to/k/e4qg5ggirqh" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/23ee47f1-48b3-40af-aa4a-655c2520a05c.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>OTG Extension</h3>
-      <p class="short-desc">High-Speed USB 2.0 Hub - Expand Your Device</p>
-      <p class="full-desc">Connectivity with 4/7 Ports, LED Indicator Switches, Compact and Lightweight Design for PCs and Laptops - Black</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.836</div>
-      <a href="https://share.temu.com/AFdBYqAWRVB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/f03bbd6536163de93d0273b8ffcf1eb3.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>RGB Gaming Mouse</h3>
-      <p class="short-desc">Silver Carved Mechanical Gaming Mouse,</p>
-      <p class="full-desc">Wired, Suitable for Desktop And Laptop Use, Silent for Office And Esports.</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.2570</div>
-      <a href="https://share.temu.com/GnNHeaUevAB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/785405df6369d7bf47e59a2d173b23fe.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>Light Weight Gaming Wired Headphones</h3>
-      <p class="short-desc">7260 Wired Over-Ear Headset with Microphone</p>
-      <p class="full-desc">Compatible: PS4/PS5/Xbox One/SWITCH / Mobile Phones &amp; PC Tablets, comfortable to wear clear call, Lightweight Headphones, Noise Isolation, Durable Plastic, USB Powered, Voice Communication</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.4131</div>
-      <a href="https://share.temu.com/nZQDkrPiHRB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/56097efe-6454-4ba5-958f-3c2a3ff12be2.jpg?imageView2/2/w/800/q/70/format/avif" alt="">
-    <div class="card-content">
-      <h3>USB Wired Keyboard And Mouse Combo with Rainbow LED</h3>
-      <p class="short-desc">USB Wired Keyboard And Mouse Combo with Rainbow LED Backlighting,</p>
-      <p class="full-desc">Suitable for PCs, Laptops, Gaming, Office Work, Mac, PS4, And Xbox</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.6885</div>
-      <a href="https://share.temu.com/dkZhvwqDeCB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/open/9e097c0b3a5647aa99d831a36e05a44c-goods.jpeg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1" alt="">
-    <div class="card-content">
-      <h3>LED-Backlit Keyboard/Headset/Mouse Bundle</h3>
-      <p class="short-desc">Keyboard and Mouse Set Vibrant LED-Backlit</p>
-      <p class="full-desc">Keyboard/Headset/Mouse/Large Mouse Pad Gaming Peripherals Bundle Suitable for Gaming, Esports, Home and Office Use</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.12762</div>
-      <a href="https://share.temu.com/9yUjE3GyTiB" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/4d016d85-3337-4197-9c88-8e4f55453481.jpg?imageView2/2/w/1300/q/90/format/avif%7CimageVqr/1" alt="">
-    <div class="card-content">
-      <h3>Backlit Gaming Keyboard for PC</h3>
-      <p class="short-desc">Backlit Gaming Keyboard for PC,</p>
-      <p class="full-desc">Laptop &amp; Office Universal Thin Film Keyboard</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.6879</div>
-      <a href="" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://img.kwcdn.com/product/fancy/0c806d17-6a96-4ed2-b501-dd7f9e09fb85.jpg?imageView2/2/w/800/q/70/format/avif" alt="Black Luxurious Watch">
-    <div class="card-content">
-      <h3>Black Luxurious Watch</h3>
-      <p class="short-desc"></p>
-      <p class="full-desc">A 5pcs Set Featuring a Women's Sparkling Rhinestone Quartz Watch</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.398</div>
-      <a href="https://temu.to/k/eqtmqtnoyoy" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/HLB1K34yUHvpK1RjSZFqq6AXUVXaZ.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/HLB15lJxUSzqK1RjSZFHq6z3CpXa6.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/HLB1q6lJUIfpK1RjSZFOq6y6nFXa8.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/HLB1yN4vUH2pK1RjSZFsq6yNlXXa5.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/HLB1K34yUHvpK1RjSZFqq6AXUVXaZ.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Desktop Gaming Keyboard</h3>
-      <p class="short-desc"></p>
-      <p class="full-desc">Stock Gaming Products Mechanical Keys Desktop Gaming Keyboard</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.4705</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=60556514750" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/Hb5d83213348c463f9cdffdf03d6a04fbt.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H17bdc87fae6d42c6b88ad2d838e80047e.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H71ac9eb4327c4dae9e295e28c32d5a0fK.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H8043bace9f4e4bec9283bf5277de21adm.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hb5d83213348c463f9cdffdf03d6a04fbt.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>TWS 2026 Gaming Calling BT Earphone</h3>
-      <p class="short-desc">Trending Products TWS 2026 Gaming</p>
-      <p class="full-desc">Calling BT Earphone E10 LED Display Long Endurance Wireless Earphones</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.910</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601672087457" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/Hd5cbf65fa0184cdfa2a26fc1bc29ff141.png?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>LCD Gaming Desktop</h3>
-      <p class="short-desc">24" Full-Setup LCD Gaming Desktop PC I7-13700H</p>
-      <p class="full-desc">RTX3060 32GB DDR4 RAM 1TB SSD AU Plug USB New Business 1080 Gaming Product</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.240,888–248,416</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601592357214" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://s.alicdn.com/@sc04/kf/He3348378f7b240c58cfedf4d87491b9fq.jpg?avif=close&webp=close" alt="">
-    <div class="card-content">
-      <h3>Gaming Wired Headphone</h3>
-      <p class="short-desc"></p>
-      <p class="full-desc">Top Selling Headphone Products K2 Gaming Wired Headphone</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.3764</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=60702763866" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H74d4990458e94a4b939179beb71b4204l.png?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H5c54472f6e51407f89092f9bbdd9fc19N.png?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H744bfebba3a0419781498705acc206e2J.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H03775d8a7b254ea69bddad613167c19ag.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H74d4990458e94a4b939179beb71b4204l.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>HIFI Pods TWS Earphone</h3>
-      <p class="short-desc">US Best Vendo Factory</p>
-      <p class="full-desc">Price Wholesale Pro2ANC HIFI Pods TWS Earphone Headphone Gen4ANC Earbuds</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.2512–5912</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601703821807" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/HTB1UGb3X.jrK1RkHFNRq6ySvpXax.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/HTB1h8VgX6LuK1Rjy0Fhq6xpdFXaT.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/HTB1FM22X._rK1Rjy0Fcq6zEvVXaJ.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/HTB1UGb3X.jrK1RkHFNRq6ySvpXax.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Headphone for Silent Party</h3>
-      <p class="short-desc">3 Channel Silent Disco</p>
-      <p class="full-desc">Headphone for Silent Party with LED Lights</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.3139–9417</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=2015692880" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H0c37a98adf97413792d7d437de270456G.png?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H0ff9d75a7f8d42818e576fa5fbd2b02dQ.png?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H6b8e9ab9b4494a4aa1222c3dfde83d5bw.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H5bf84163d0ed4083bc7365f556a605a5r.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H0c37a98adf97413792d7d437de270456G.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Intel I7 10th/12th Gen Quad Core Laptop</h3>
-      <p class="short-desc">OEM 15.6 Inch Intel I7 10th Gen 12th Gen</p>
-      <p class="full-desc">Quad Core SSD Laptop English for Gaming Business Low Price New Products Available</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.80,040–114,567</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601224210243" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H482a938bc28748d69789af588d3630f8K.png?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H6a9c5f164bf8435196ae4ffd1890fdcbR.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hc4b4ec4f6fd5487294198cc66051fa95t.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H607123904c0f44f38be044c915f7daedl.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/He6ca7b57cdde48efbf8c199b2420fdfe5.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Curved Gaming Monitor 49"</h3>
-      <p class="short-desc">Flashworth 49-Inch 5K 144Hz Curved IPS LCD Desktop Monitor HDR</p>
-      <p class="full-desc">DP Interface 32:9 Aspect Ratio for Gaming Use New Product</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.131,202</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601516523960" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H9542bad878c44ef7ab1bb0e1cfc621b2c.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H048503d9390e47e58fb38f53cd50588fi.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H8757aa6998db424bb7f0b6a622e109ecJ.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hd44e1d4309474385978dd95c7316b4ceg.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H9542bad878c44ef7ab1bb0e1cfc621b2c.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>All in One Desktop PC</h3>
-      <p class="short-desc">AOC 23.8-inch Computer</p>
-      <p class="full-desc">All-in-One N5095 DDR4 8GB 256GB SSD New Product Factory Price Monoblock AIO Gaming All in One Desktop PC</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.87,887</div>
-      <a href="" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H4691c53089064474ab075c6fa1520ceeN.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H264aeb4812bc4e6a847d1e54b208e8a03.png?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hafd7e57a959e4ad7b65a933166c2ef1eR.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H9cee4d1fae4b4a129cfd5b6ae9fca5347.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H4691c53089064474ab075c6fa1520ceeN.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Full-Setup Gaming Desktop PC</h3>
-      <p class="short-desc">24" Full-Setup Gaming Desktop PC</p>
-      <p class="full-desc">I7-13700H RTX3060 32GB DDR4 RAM 1TB SSD AU Plug for Business 1080 Gaming New Product</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.244,827</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601598458880" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/Hfb5e6c03cbc84aa6bd7dd33840cfbcfbv.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/Hfb5e6c03cbc84aa6bd7dd33840cfbcfbv.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hf00f9aaaccd44db3af0ad0c156183547G.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hd16e22b3550445d5b10b51ac322d36528.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H5616eebf5ad74a76b8b490d8cc0c37b56.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Wired Gaming Mouse</h3>
-      <p class="short-desc">New Product Colourful LED Back</p>
-      <p class="full-desc">Light Type C Nylon-braided Wired Gaming Mouse for Macbook and Smart Phone</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.1256</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1600410143154" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H80d4d5a6f1e64bf0aaf724b25a0ac386y.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H80d4d5a6f1e64bf0aaf724b25a0ac386y.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Had22253a66b148a99e3c4cf3d8334247q.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H908a73d1bd5a4f93a63b5d8f1344d041b.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H7d250fdf50ec463ca6fb06f5f438d8aaA.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Legion Gaming Laptop</h3>
-      <p class="short-desc">Legion Y7000 IRX9 15.6-inch GAMING LAPTOP</p>
-      <p class="full-desc">13th Gen Intel I7-13650HX 24G (12+12)/512G SSD RTX 4060 8G Graphics Gray</p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.323,551</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601219933197" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="product-gallery">
-      <img src="https://s.alicdn.com/@sc04/kf/H76cc954420b8467083fbc290cfd4a76fo.jpg?avif=close&webp=close" class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H76cc954420b8467083fbc290cfd4a76fo.jpg?avif=close&webp=close"class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hcd577ccd35534a33885765be00569fd50.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H677966b829b049e5877b8b44158d0845E.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H46f979562d704ac1b02e3988e6ad038f0.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>RGB Gaming Chair with Massage</h3>
-      <p class="short-desc">Fast Shipping Silla Gamer Cheap        
-      </p>
-      <p class="full-desc">Computer Adjustable Racing Gaming Chair with RGB and Massage        
-      </p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">Rs.17,016</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601590820795" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-   <div class="card">
-    <div class="product-gallery">
- 
-      <img src="https://s.alicdn.com/@sc04/kf/H640899b2a5a044b1b656cd4cfcec69cct.jpeg?avif=close&webp=close"class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H640899b2a5a044b1b656cd4cfcec69cct.jpeg?avif=close&webp=close"class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H2eedb6f146924d8998fc49db56c33537Z.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hd4354717eb8d4601abd18623f5619a3co.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hcdae78f5019a439e985fe379cb72da41k.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>E-sport Cartoon Gaming Chair</h3>
-      <p class="short-desc"></p>
-      Factory Direct Sale White Cute... 
-      <p class="full-desc"></p>
-      Gaming Chair E-sport Cartoon Gaming Chair pink Swivel Lift Comfortable Computer Chair
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">16,319-20,399</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601592469623" class="btn">Buy Now</a>
-    </div>
- </div/>
-
-
-<div class="card">
-    <div class="product-gallery">
- 
-      <img src="https://s.alicdn.com/@sc04/kf/Hc2d4b6ba71144212a87c543478bf3083C.jpg?avif=close&webp=close"class="main-image">
-      <div class="thumbnails">
-        <img src=https://s.alicdn.com/@sc04/kf/Hc2d4b6ba71144212a87c543478bf3083C.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/He169aa908aa44cbd8d245ce1f74a7a02n.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Habc42acbbd724bc2ba3a6f0d8903dd75V.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H68e2b36c6ff44d348d9497ba62cbe4dbR.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Gaming Mouse</h3>
-      <p class="short-desc">
-        Gaming Mouse LED Backlit Optical...
-      </p>
-      <p class="full-desc">
-        RGB Programmable Right Stock Cute Braided CableGaming Mouse LED Backlit Optical RGB Programmable Right Stock Cute Braided Cable
-      </p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">1,256</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601250792513" class="btn">Buy Now</a>
-    </div>
- </div/>
-
-
-<div class="card">
-    <div class="product-gallery">
- 
-      <img src="https://s.alicdn.com/@sc04/kf/Hcb48cbd7e2064497886202ba7d7b07cah.jpg?avif=close&webp=close"class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/Hcb48cbd7e2064497886202ba7d7b07cah.jpg?avif=close&webp=close"class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hb47ddf1b8052447c897653d18b5507caL.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H104ff4a73b5c44859a3096ac3e80bd18l.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Haea4de1a9d4f44c38f1423a46a344342Q.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3>Wireless Charging Mouse Pad</h3>
-      <p class="short-desc">
-        Professional Wireless Charging...
-      </p>
-      <p class="full-desc">
-        Mouse Pad High Density Foam Non-slip Fit Desktop Design Computer Accessories Stock Products
-      </p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price"></div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601440579219" class="btn">Buy Now</a>
-    </div>
- </div/>
-  
-  <div class="card">
-    <div class="product-gallery">
- 
-      <img src="https://s.alicdn.com/@sc04/kf/H38c8e12e77a54de39e0ce38df4d67967r.jpg?avif=close&webp=close"class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/H38c8e12e77a54de39e0ce38df4d67967r.jpg?avif=close&webp=close"class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H93eca9d43ccc4fe784f399da458f0c9b1.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H930c1b31ff1a4bb688b9695a4408ff8cb.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H64bba334af6e49b9bf45b29417ff17d5E.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>                                            
-    </div>
-    <div class="card-content">
-      <h3>INGSCREEN Excellent Desktop </h3>
-      <p class="short-desc">
-        INGSCREEN Excellent Desktop...
-      </p>
-      <p class="full-desc">
-        All in One Touch Screen Pc Computer with Professional Discrete Graphics for Gaming
-      </p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">52,085-122,233{</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=11000005381242" class="btn">Buy Now</a>
-    </div>
- </div/>
-
-
-<div class="card">
-    <div class="product-gallery">
- 
-      <img src="https://s.alicdn.com/@sc04/kf/Heaa89a3f7bf24cf5ab6c6bd2299504a2x.jpg?avif=close&webp=close"class="main-image">
-      <div class="thumbnails">
-        <img src="https://s.alicdn.com/@sc04/kf/Heaa89a3f7bf24cf5ab6c6bd2299504a2x.jpg?avif=close&webp=close"class="thumb active" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/Hdc4c4c0c6f744acbb3a5c32de0c83812h.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H6710eca44608484bac0459949b9b6e21P.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-        <img src="https://s.alicdn.com/@sc04/kf/H3719b15b0ade44b1af45130db0344b037.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)">
-      </div>
-    </div>
-    <div class="card-content">
-      <h3></h3>
-      <p class="short-desc">
-        Touch-screen Smart... 
-      </p>
-      <p class="full-desc">
-        Earphone Fashionable Design Wireless Earphones for Outdoor Sports TWS bluetooth Earbuds
-      </p>
-      <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-      <div class="price">3,076</div>
-      <a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601274646816" class="btn">Buy Now</a>
-    </div>
- </div/>
-
-  
-</div>
+  <div class="products" id="home-products"></div>
 </section>
 
-<!-- ===================== GAMING SECTION ===================== -->
+<!-- BEAUTY -->
+<section class="section" id="beauty">
+  <h2>Beauty Products</h2>
+  <input type="text" class="search-bar" placeholder="Search beauty products... (press Enter to search)"
+    onkeydown="if(event.key==='Enter') searchProducts(this)"
+    oninput="if(this.value==='') searchProducts(this)">
+  <div class="products">
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/c6c11aec-30ce-4a25-b5e2-18d8b9fb6d12.jpg?imageView2/2/w/1300/q/90/format/avif"><div class="card-content"><h3>NAILS FOR EASTER</h3><p class="short-desc">24pcs Easter Theme Fake Nail Set, Macaron Bunny Design,</p><p class="full-desc">Glossy Finish, 12 Sizes with Jelly Glue and Nail File, Artistic False Nails for Women</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.531</div><a href="https://share.temu.com/p4VuXYgXsEB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/41f85bba-b3b3-4533-9f33-b0ed6a1cbbe1.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>King Love Beauty</h3><p class="short-desc">Vitamin C Sunscreen with SPF60, waterproof and moisturizing.</p><p class="full-desc">150g Vitamin C Sunscreen, Broad Spectrum SPF60PA+++, Suitable for Dry and Oily Skin, Moisturizing Formula, Waterproof Protection.</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.2755</div><a href="https://share.temu.com/mDNnjKj9S7B" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/5cf28654-2751-4f28-a410-f6567430330b.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Clarity Isolation Protection Cream</h3><p class="short-desc">Clear And Non-Irritating Isolation Protection,</p><p class="full-desc">Essential for Going Out, Moisturizing And Clear Facial Sunscreen</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.983</div><a href="https://share.temu.com/JiaAMDViAPB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/ba46f935-de74-4468-bba6-7cfaa9affe27.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Red Cat Eye Fake Nails</h3><p class="short-desc">10pcs of Red Cat-Eye Short Square Fake Nails,</p><p class="full-desc">Glossy Acrylic Nails, Reusable Acrylic Home Nails Suitable for Autumn And Winter Nail Decoration</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.331</div><a href="https://share.temu.com/d64lMod7mtB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/f6ff69c8-8eb4-4dae-9d89-1beac4470597.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Easter Bunny False Nails</h3><p class="short-desc">24pcs Easter Pastel Bunny False Nails,</p><p class="full-desc">Polka Dot Stripe Cute Artificial Nails, Suitable for Women's Spring and Summer Decorative Styling</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.682</div><a href="https://share.temu.com/zi8og73hl8B" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/open/ac86a6b3efb34e5ea509a6a3ee62b467-goods.jpeg?imageView2/2/w/1300/q/90/format/avif" alt=""><div class="card-content"><h3>European Style Short Square Easter Nails</h3><p class="short-desc">24pcs European Style Short Square Easter Nails,</p><p class="full-desc">Cute Bunny and Pink Heart Design Press-On Nails, Simple and Stylish Fake Nails for Women</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.612</div><a href="https://share.temu.com/h4JrYckOkYB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/f5707130-079b-4ab2-aa98-03a60dff3abb.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Tanning Oil</h3><p class="short-desc">100Ml Coconut Tanning Oil, Waterproof And Long-Lasting Tan,</p><p class="full-desc">Suitable for Indoor Use, Moisturizing and Hydrating, Spray Bottle, Free from Oxybenzone</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.2837</div><a href="https://share.temu.com/ymgAKWDK8FB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/d0dd8771-805b-4fb1-b44e-807d29295ff8.jpg?imageView2/2/w/1300/q/90/format/avif" alt=""><div class="card-content"><h3>Easter Themed Short Square Press-On Nails</h3><p class="short-desc">24pcs Easter Themed Short Square Press-On Nails Set,</p><p class="full-desc">Mixed Color Animal Pattern, Glossy Finish, Full Coverage Fake Nails, Cute Egg and Chick Design for Daily Wear</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.778</div><a href="https://share.temu.com/jbflClZDmoB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/9d17a4ca-08d6-462e-9fab-b536216afec1.jpg?imageView2/2/w/1300/q/90/format/avif" alt=""><div class="card-content"><h3>Tanning Oil Natural Coconut Oil</h3><p class="short-desc">Instant Blackening with a Single Swipe, Long-Lasting Color Fixation</p><p class="full-desc">Natural Coconut Oil Bronzing Tropical Self-Tanning Oil 30ml. Provides Instant Color in 8 Seconds</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1373</div><a href="https://share.temu.com/DvJ8bsZHrvB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/Hf66ff37ad0ce4142817b4d1086d170dbD.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Press On Nails</h3><p class="short-desc">W821 Pastel Press on Nails Easter Spring Soft Colors Discounted</p><p class="full-desc">Pastel spring nail set, perfect for Easter season styling.</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.258</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601164459006" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H26644f50f63e432eafe2cec9e86a72849.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Short Square Press on Nails Soft Gel Handmade</h3><p class="short-desc">Wholesale Custom Logo Short Square Press on Nails</p><p class="full-desc">Soft Gel Handmade French Tip Nails Kit for Manicure Beauty Nail Art Sticker</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1408</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601690117848" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H5be7ab10764e43e588f27625ab7237031.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Hdab4569fa181479ca6233248d078b718S.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hbd4152a9f1994e5d8136d7afaa5f1054h.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H42dd3e302d9c419b89f1d3317ea6cc68k.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H5be7ab10764e43e588f27625ab7237031.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Pure Polish Gel Nail Stickers</h3><p class="short-desc">100% Pure Polish Gel Nail Stickers New</p><p class="full-desc">Technique UV Bake Easy Application Without Gel Easter Used Strip Nail Product</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.490</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601164459006" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H08d9c1cbd152437185ae47fef6b76b1cS.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Ha65b6fc437094bbd84622d5ac793490aw.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H4c8e654dcfb346178074285c93a8e542F.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hbb9e9cfbff1b40aeab8a0842c31bde6da.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H08d9c1cbd152437185ae47fef6b76b1cS.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Reusable False Nails</h3><p class="short-desc">Wholesale High Quality Reusable False Nails</p><p class="full-desc">Wholesale High Quality Reusable False Nails Artificial Nails</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.95</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601245722136" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/Hd2852a0a683a4ae69baf69906680ddacS.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Hb46959444a03440482274c69af2a5bf2D.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H57cd010c3e5c49b79f10cae73c5458d4g.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hd2852a0a683a4ae69baf69906680ddacS.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Saint Patrick's Day Nail Decals</h3><p class="short-desc">New Spring 3D Plastic Four-leaf Clover</p><p class="full-desc">Clover Laser Nail Art Sticker Decal with Self-adhesive Design Saint Patrick's Day Nail Decals</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.79</div><a href="" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H1d2213e1d17e42d3b64cde39adbeaf76b.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Natural Keratin Hair Treatment</h3><p class="short-desc">Brazilian Natural Keratin Hair Treatment</p><p class="full-desc">Wholesale by Carton 800ml Hair Smoothing Cream Product</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.20,241</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601418772610" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/Hccefdd6833904838b6b72625e13233ecy.png?avif=close&webp=close" alt=""><div class="card-content"><h3>Brazilian Straightening Keratin</h3><p class="short-desc">Brazilian Straightening Keratin Treatment</p><p class="full-desc">Brazilian Straightening Keratin Treatment for Hair Without Formaldehyde</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.4705</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1600770633202" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H23f7a5c36f1b4c58a6648e771ecd1dc65.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>OEM Waterproof Root Touch up Hair</h3><p class="short-desc">OEM Waterproof Root Touch up Hair</p><p class="full-desc">Dye Stick 2 in 1 Comb &amp; Color Quick Gray Hair Cover Up, Ammonia Free Portable</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.258</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601594093666" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H0011b1e1158b45fbad3b4aecdca6fa7bX.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Hydrolyzed Keratin Hair Care</h3><p class="short-desc">MOCHEQI Wholesale Factory Latest Hydrolyzed</p><p class="full-desc">Keratin Hair Care Hair Mask for Hair Repair Nourishment and Rejuvenation</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.534</div><a href="https://offer.alibaba.com/cps/3c8koa1s?bm=cps&src=saf" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/Hd72be7a87f524e41b826989e25d84680J.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Keratin Complex Smoothing Therapy</h3><p class="short-desc">Organic Formaldehyde-Free Keratin</p><p class="full-desc">Complex Smoothing Therapy Safe Cosmetics for Nourishment Beauty Hyaluronic Acid Hair Product</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.4705</div><a href="https://offer.alibaba.com/cps/utoo2oun?bm=cps&src=saf" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/Hf478ba7c77f34b5e83ca0a5fa26989a7k.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>OEM Coconut Oil</h3><p class="short-desc">OEM Coconut Oil Hair &amp; Scalp Treatment</p><p class="full-desc">Oil-Anti-Dandruff Damaged Hair Repair &amp; Nourishing</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.719</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601658608932" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H6c4a7006354d487890e4a19212aa92b4S.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>OEM Shampoo</h3><p class="short-desc">OEM Shampoo Manufacturers</p><p class="full-desc">Rosemary Extract Peppermint Oil Refreshing Oil-Control Rosemary Shampoo</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.703</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601661844082" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H530ea104003c43f2a6ddf75246b2e306i.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Rose Hair Loss Regrowth Care Oil</h3><p class="short-desc">Customize Hair Organic Rose Hair</p><p class="full-desc">Loss Regrowth Care Oil Bulk for Black Women Fast Argan Hair Repairing Growth Oil Products</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1224</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601558398841" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/H8f83b699c6c644b99904a3d298e4f452a.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Hair Dye Permanent Hair Color</h3><p class="short-desc">Organic Professional Salon</p><p class="full-desc">Professional Hair Dye Permanent Hair Color</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.314</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601252719587" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H9821633266a14aa38652fd2dbfb6a3fa4.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H9821633266a14aa38652fd2dbfb6a3fa4.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H795f4e646bcb4a599a750aa642fa675al.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hed3bd5b14cb44cbc90e5e11e59a27dd6G.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H7f86c620fef94c9791f75bb540444c31O.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Sunless Tanning Lotion</h3><p class="short-desc">Private Label Self Tanner</p><p class="full-desc">Sunless Tanning Lotion with Hyaluronic Acid, Coconut Oil, Tea Tree, Centella Asiatica Extract — Body OEM/ODM</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.414</div><a href="https://offer.alibaba.com/cps/nqgiqj6l?bm=cps&src=saf" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H0a9185e0cf994892b25a27ae4905c0873.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H0a9185e0cf994892b25a27ae4905c0873.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hb34ff683123f48fc980893d8bffdba03h.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hde5b34eacbe843daae6af850dcf2142cq.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Tanning Oil Lotion</h3><p class="short-desc">Herbal Peptide Vegan Tanning Oil Lotion</p><p class="full-desc">Quick Indoor and Outdoor Body Tanning Cream, Wheat Bronzer with Dark Shade, OEM Supply</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1,098</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601674562415" class="btn">Buy Now</a></div></div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="section" id="tech">
+  <h2>Tech Products</h2>
+  <input type="text" class="search-bar" placeholder="Search tech products... (press Enter to search)"
+    onkeydown="if(event.key==='Enter') searchProducts(this)"
+    oninput="if(this.value==='') searchProducts(this)">
+  <div class="products">
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/061a9ef9-e1da-4160-8867-381e592eeb14.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Luxurious Wrist Watch</h3><p class="short-desc">Elegant wrist watch for everyday wear.</p><p class="full-desc">Premium quality watch with stylish design, perfect for all occasions.</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1078</div><a href="https://temu.to/k/e4qg5ggirqh" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/23ee47f1-48b3-40af-aa4a-655c2520a05c.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>OTG Extension</h3><p class="short-desc">High-Speed USB 2.0 Hub - Expand Your Device</p><p class="full-desc">Connectivity with 4/7 Ports, LED Indicator Switches, Compact and Lightweight Design for PCs and Laptops</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.836</div><a href="https://share.temu.com/AFdBYqAWRVB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/f03bbd6536163de93d0273b8ffcf1eb3.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>RGB Gaming Mouse</h3><p class="short-desc">Silver Carved Mechanical Gaming Mouse,</p><p class="full-desc">Wired, Suitable for Desktop And Laptop Use, Silent for Office And Esports.</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.2570</div><a href="https://share.temu.com/GnNHeaUevAB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/785405df6369d7bf47e59a2d173b23fe.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Light Weight Gaming Wired Headphones</h3><p class="short-desc">7260 Wired Over-Ear Headset with Microphone</p><p class="full-desc">Compatible: PS4/PS5/Xbox One/SWITCH/Mobile Phones and PC Tablets, Lightweight, Noise Isolation</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.4131</div><a href="https://share.temu.com/nZQDkrPiHRB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/56097efe-6454-4ba5-958f-3c2a3ff12be2.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>USB Wired Keyboard And Mouse Combo with Rainbow LED</h3><p class="short-desc">USB Wired Keyboard And Mouse Combo with Rainbow LED Backlighting,</p><p class="full-desc">Suitable for PCs, Laptops, Gaming, Office Work, Mac, PS4, And Xbox</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.6885</div><a href="https://share.temu.com/dkZhvwqDeCB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/open/9e097c0b3a5647aa99d831a36e05a44c-goods.jpeg?imageView2/2/w/1300/q/90/format/avif" alt=""><div class="card-content"><h3>LED-Backlit Keyboard/Headset/Mouse Bundle</h3><p class="short-desc">Keyboard and Mouse Set Vibrant LED-Backlit</p><p class="full-desc">Keyboard/Headset/Mouse/Large Mouse Pad Gaming Peripherals Bundle for Gaming, Esports, Home and Office</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.12762</div><a href="https://share.temu.com/9yUjE3GyTiB" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/4d016d85-3337-4197-9c88-8e4f55453481.jpg?imageView2/2/w/1300/q/90/format/avif" alt=""><div class="card-content"><h3>Backlit Gaming Keyboard for PC</h3><p class="short-desc">Backlit Gaming Keyboard for PC,</p><p class="full-desc">Laptop and Office Universal Thin Film Keyboard</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.6879</div><a href="" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://img.kwcdn.com/product/fancy/0c806d17-6a96-4ed2-b501-dd7f9e09fb85.jpg?imageView2/2/w/800/q/70/format/avif" alt=""><div class="card-content"><h3>Black Luxurious Watch</h3><p class="short-desc">Women's Sparkling Rhinestone Quartz Watch Set</p><p class="full-desc">A 5pcs Set Featuring a Women's Sparkling Rhinestone Quartz Watch</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.398</div><a href="https://temu.to/k/eqtmqtnoyoy" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/HLB1K34yUHvpK1RjSZFqq6AXUVXaZ.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/HLB15lJxUSzqK1RjSZFHq6z3CpXa6.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/HLB1q6lJUIfpK1RjSZFOq6y6nFXa8.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/HLB1yN4vUH2pK1RjSZFsq6yNlXXa5.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/HLB1K34yUHvpK1RjSZFqq6AXUVXaZ.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Desktop Gaming Keyboard</h3><p class="short-desc">Mechanical Keys Desktop Gaming Keyboard</p><p class="full-desc">Stock Gaming Products Mechanical Keys Desktop Gaming Keyboard</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.4705</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=60556514750" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/Hb5d83213348c463f9cdffdf03d6a04fbt.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H17bdc87fae6d42c6b88ad2d838e80047e.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H71ac9eb4327c4dae9e295e28c32d5a0fK.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H8043bace9f4e4bec9283bf5277de21adm.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hb5d83213348c463f9cdffdf03d6a04fbt.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>TWS 2026 Gaming Calling BT Earphone</h3><p class="short-desc">Trending Products TWS 2026 Gaming</p><p class="full-desc">Calling BT Earphone E10 LED Display Long Endurance Wireless Earphones</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.910</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601672087457" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/Hd5cbf65fa0184cdfa2a26fc1bc29ff141.png?avif=close&webp=close" alt=""><div class="card-content"><h3>LCD Gaming Desktop</h3><p class="short-desc">24" Full-Setup LCD Gaming Desktop PC I7-13700H</p><p class="full-desc">RTX3060 32GB DDR4 RAM 1TB SSD New Business 1080 Gaming Product</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.240,888–248,416</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601592357214" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://s.alicdn.com/@sc04/kf/He3348378f7b240c58cfedf4d87491b9fq.jpg?avif=close&webp=close" alt=""><div class="card-content"><h3>Gaming Wired Headphone</h3><p class="short-desc">Top Selling K2 Gaming Wired Headphone</p><p class="full-desc">Top Selling Headphone Products K2 Gaming Wired Headphone</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.3764</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=60702763866" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H74d4990458e94a4b939179beb71b4204l.png?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H5c54472f6e51407f89092f9bbdd9fc19N.png?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H744bfebba3a0419781498705acc206e2J.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H03775d8a7b254ea69bddad613167c19ag.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H74d4990458e94a4b939179beb71b4204l.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>HIFI Pods TWS Earphone</h3><p class="short-desc">US Best Vendo Factory Price Wholesale</p><p class="full-desc">Pro2ANC HIFI Pods TWS Earphone Headphone Gen4ANC Earbuds</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.2512–5912</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601703821807" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/HTB1UGb3X.jrK1RkHFNRq6ySvpXax.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/HTB1h8VgX6LuK1Rjy0Fhq6xpdFXaT.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/HTB1FM22X._rK1Rjy0Fcq6zEvVXaJ.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/HTB1UGb3X.jrK1RkHFNRq6ySvpXax.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Headphone for Silent Party</h3><p class="short-desc">3 Channel Silent Disco</p><p class="full-desc">Headphone for Silent Party with LED Lights</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.3139–9417</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=2015692880" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H0c37a98adf97413792d7d437de270456G.png?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H0ff9d75a7f8d42818e576fa5fbd2b02dQ.png?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H6b8e9ab9b4494a4aa1222c3dfde83d5bw.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H5bf84163d0ed4083bc7365f556a605a5r.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H0c37a98adf97413792d7d437de270456G.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Intel I7 10th/12th Gen Quad Core Laptop</h3><p class="short-desc">OEM 15.6 Inch Intel I7 10th/12th Gen</p><p class="full-desc">Quad Core SSD Laptop for Gaming Business Low Price</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.80,040–114,567</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601224210243" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H482a938bc28748d69789af588d3630f8K.png?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H6a9c5f164bf8435196ae4ffd1890fdcbR.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hc4b4ec4f6fd5487294198cc66051fa95t.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H607123904c0f44f38be044c915f7daedl.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/He6ca7b57cdde48efbf8c199b2420fdfe5.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Curved Gaming Monitor 49"</h3><p class="short-desc">Flashworth 49-Inch 5K 144Hz Curved IPS LCD Monitor</p><p class="full-desc">DP Interface 32:9 Aspect Ratio for Gaming Use New Product</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.131,202</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601516523960" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H9542bad878c44ef7ab1bb0e1cfc621b2c.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H048503d9390e47e58fb38f53cd50588fi.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H8757aa6998db424bb7f0b6a622e109ecJ.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hd44e1d4309474385978dd95c7316b4ceg.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H9542bad878c44ef7ab1bb0e1cfc621b2c.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>All in One Desktop PC</h3><p class="short-desc">AOC 23.8-inch All-in-One Computer</p><p class="full-desc">N5095 DDR4 8GB 256GB SSD Factory Price Monoblock AIO Gaming Desktop PC</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.87,887</div><a href="" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H4691c53089064474ab075c6fa1520ceeN.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H264aeb4812bc4e6a847d1e54b208e8a03.png?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hafd7e57a959e4ad7b65a933166c2ef1eR.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H9cee4d1fae4b4a129cfd5b6ae9fca5347.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H4691c53089064474ab075c6fa1520ceeN.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Full-Setup Gaming Desktop PC</h3><p class="short-desc">24" Full-Setup Gaming Desktop PC</p><p class="full-desc">I7-13700H RTX3060 32GB DDR4 RAM 1TB SSD for Business 1080 Gaming</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.244,827</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601598458880" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/Hfb5e6c03cbc84aa6bd7dd33840cfbcfbv.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Hfb5e6c03cbc84aa6bd7dd33840cfbcfbv.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hf00f9aaaccd44db3af0ad0c156183547G.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hd16e22b3550445d5b10b51ac322d36528.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H5616eebf5ad74a76b8b490d8cc0c37b56.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Wired Gaming Mouse</h3><p class="short-desc">New Product Colourful LED Backlit Type C</p><p class="full-desc">Nylon-braided Wired Gaming Mouse for Macbook and Smart Phone</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1256</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1600410143154" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H80d4d5a6f1e64bf0aaf724b25a0ac386y.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H80d4d5a6f1e64bf0aaf724b25a0ac386y.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Had22253a66b148a99e3c4cf3d8334247q.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H908a73d1bd5a4f93a63b5d8f1344d041b.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H7d250fdf50ec463ca6fb06f5f438d8aaA.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Legion Gaming Laptop</h3><p class="short-desc">Legion Y7000 IRX9 15.6-inch GAMING LAPTOP</p><p class="full-desc">13th Gen Intel I7-13650HX 24G/512G SSD RTX 4060 8G Graphics Gray</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.323,551</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601219933197" class="btn">Buy Now</a></div></div>
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H76cc954420b8467083fbc290cfd4a76fo.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H76cc954420b8467083fbc290cfd4a76fo.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hcd577ccd35534a33885765be00569fd50.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H677966b829b049e5877b8b44158d0845E.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H46f979562d704ac1b02e3988e6ad038f0.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>RGB Gaming Chair with Massage</h3><p class="short-desc">Fast Shipping Adjustable Racing Gaming Chair</p><p class="full-desc">Computer Adjustable Racing Gaming Chair with RGB and Massage</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.17,016</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601590820795" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H640899b2a5a044b1b656cd4cfcec69cct.jpeg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H640899b2a5a044b1b656cd4cfcec69cct.jpeg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H2eedb6f146924d8998fc49db56c33537Z.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hd4354717eb8d4601abd18623f5619a3co.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hcdae78f5019a439e985fe379cb72da41k.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>E-sport Cartoon Gaming Chair</h3><p class="short-desc">Factory Direct Sale White Cute Gaming Chair</p><p class="full-desc">E-sport Cartoon Gaming Chair Pink Swivel Lift Comfortable Computer Chair</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.16,319–20,399</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601592469623" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/Hc2d4b6ba71144212a87c543478bf3083C.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Hc2d4b6ba71144212a87c543478bf3083C.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/He169aa908aa44cbd8d245ce1f74a7a02n.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Habc42acbbd724bc2ba3a6f0d8903dd75V.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H68e2b36c6ff44d348d9497ba62cbe4dbR.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Gaming Mouse</h3><p class="short-desc">Gaming Mouse LED Backlit Optical RGB Programmable</p><p class="full-desc">RGB Programmable Right Stock Cute Braided Cable Gaming Mouse LED Backlit Optical</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.1,256</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601250792513" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/Hcb48cbd7e2064497886202ba7d7b07cah.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Hcb48cbd7e2064497886202ba7d7b07cah.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hb47ddf1b8052447c897653d18b5507caL.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H104ff4a73b5c44859a3096ac3e80bd18l.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Haea4de1a9d4f44c38f1423a46a344342Q.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Wireless Charging Mouse Pad</h3><p class="short-desc">Professional Wireless Charging Mouse Pad</p><p class="full-desc">High Density Foam Non-slip Fit Desktop Design Computer Accessories Stock Products</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.Contact for price</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601440579219" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/H38c8e12e77a54de39e0ce38df4d67967r.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/H38c8e12e77a54de39e0ce38df4d67967r.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H93eca9d43ccc4fe784f399da458f0c9b1.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H930c1b31ff1a4bb688b9695a4408ff8cb.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H64bba334af6e49b9bf45b29417ff17d5E.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>INGSCREEN Touch Screen Desktop</h3><p class="short-desc">INGSCREEN Excellent Desktop All in One Touch Screen PC</p><p class="full-desc">All in One Touch Screen PC with Professional Discrete Graphics for Gaming</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.52,085–122,233</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=11000005381242" class="btn">Buy Now</a></div></div>
+
+    <div class="card"><div class="product-gallery"><img src="https://s.alicdn.com/@sc04/kf/Heaa89a3f7bf24cf5ab6c6bd2299504a2x.jpg?avif=close&webp=close" class="main-image"><div class="thumbnails"><img src="https://s.alicdn.com/@sc04/kf/Heaa89a3f7bf24cf5ab6c6bd2299504a2x.jpg?avif=close&webp=close" class="thumb active" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/Hdc4c4c0c6f744acbb3a5c32de0c83812h.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H6710eca44608484bac0459949b9b6e21P.jpg?avif=close&webp=close" class="thumb" onclick="changeImage(this)"><img src="https://s.alicdn.com/@sc04/kf/H3719b15b0ade44b1af45130db0344b037.png?avif=close&webp=close" class="thumb" onclick="changeImage(this)"></div></div><div class="card-content"><h3>Wireless TWS Bluetooth Earbuds</h3><p class="short-desc">Touch-screen Smart Fashionable Wireless Earphones</p><p class="full-desc">Fashionable Design Wireless Earphones for Outdoor Sports TWS Bluetooth Earbuds</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.3,076</div><a href="https://offer.alibaba.com/cps/0ciah0q6?bm=cps&src=saf&productId=1601274646816" class="btn">Buy Now</a></div></div>
+  </div>
+</section>
+
+<!-- GAMING -->
 <section class="section" id="gaming">
-<h2>Gaming Products</h2>
-<div class="products">
-
-  <div class="card">
-    <img src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_Sifu.jpg" alt="Sifu">
-    <div class="card-content">
-      <h3>Sifu Epic Games Account</h3>
-      <p>Epic Games Account with Sifu</p>
-      <div class="price">$25</div>
-      <a href="https://www.instagram.com/zoro_affiliates?igsh=MXd4ODg3eTlmbW80bw==" class="btn">Buy Now</a>
-    </div>
+  <h2>Gaming Products</h2>
+  <div class="products">
+    <div class="card"><img src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_Sifu.jpg" alt="Sifu"><div class="card-content"><h3>Sifu Epic Games Account</h3><p class="short-desc">Epic Games Account with Sifu</p><p class="full-desc">Full Epic Games account access including Sifu game.</p><div class="price">$25</div><a href="https://www.instagram.com/zoro_affiliates?igsh=MXd4ODg3eTlmbW80bw==" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxFQotaUdDW3F-qGFAqX9UVbMLH4kfhgvneg&s" alt=""><div class="card-content"><h3>Dead Island 2</h3><p class="short-desc">Brutal first-person action RPG, quarantined Los Angeles zombie survival.</p><p class="full-desc">Fight, explore, and survive using creative weapons, intense combat, and dark humor. DM on Instagram to buy.</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.3199</div><a href="https://www.instagram.com/zoro_affiliates?igsh=MXd4ODg3eTlmbW80bw==" class="btn">Buy Now</a></div></div>
+    <div class="card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjUfqbq1eYXHk_LKa2ThJ7kB-e4WymqNBmdA&s" alt=""><div class="card-content"><h3>Lego Star Wars: Skywalker Saga</h3><p class="short-desc">Fun-filled action-adventure reliving all nine main Star Wars films.</p><p class="full-desc">One epic LEGO experience covering the entire Skywalker saga. DM on Instagram to buy.</p><button class="details-btn" onclick="toggleDetails(this)">Details</button><div class="price">Rs.2999</div><a href="https://www.instagram.com/zoro_affiliates?igsh=MXd4ODg3eTlmbW80bw==" class="btn">Buy Now</a></div></div>
   </div>
-
-  <div class="card">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxFQotaUdDW3F-qGFAqX9UVbMLH4kfhgvneg&s" alt="">
-    <div class="card-content">
-      <h3>Dead Island 2</h3>
-      <p>Dead Island 2 is a brutal first-person action RPG set in a quarantined Los Angeles overrun by terrifying zombies. Fight, explore, and survive using creative weapons, intense combat, and dark humor. DM on Instagram to buy.</p>
-      <div class="price">Rs.3199</div>
-      <a href="https://www.instagram.com/zoro_affiliates?igsh=MXd4ODg3eTlmbW80bw==" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjUfqbq1eYXHk_LKa2ThJ7kB-e4WymqNBmdA&s" alt="">
-    <div class="card-content">
-      <h3>Lego Star Wars: Skywalker Saga</h3>
-      <p>Lego Star Wars: The Skywalker Saga is a fun-filled action-adventure game that lets you relive all nine main Star Wars films in one epic LEGO experience.</p>
-      <div class="price">Rs.2999</div>
-      <a href="https://www.instagram.com/zoro_affiliates?igsh=MXd4ODg3eTlmbW80bw==" class="btn">Buy Now</a>
-    </div>
-  </div>
-
-</div>
 </section>
 
-<!-- ABOUT -->
 <section class="about" id="about">
   <h2>About Zenova</h2>
   <p>Zenova is your premium destination for beauty, tech, and gaming products. We partner with trusted brands to bring you the best products through affiliate deals.</p>
 </section>
 
-<footer>
-  © 2026 Zenova Store. All rights reserved.
-</footer>
- 
+<footer>© 2026 Zenova Store. All rights reserved.</footer>
+
 <script>
-// ── openSection ──────────────────────────────────────────────
+// ══════════════════════════════════════════════
+//  ALL JAVASCRIPT — ONE BLOCK, NO DUPLICATES
+// ══════════════════════════════════════════════
+
 function openSection(sectionId) {
+  // Hide all sections and clear active tabs
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // Show the chosen section
   document.getElementById(sectionId).classList.add('active');
+  // Highlight matching tab button
   document.querySelectorAll('.tab-btn').forEach(b => {
     if (b.textContent.trim().toLowerCase() === sectionId.toLowerCase()) {
       b.classList.add('active');
     }
   });
- const el = document.getElementById(sectionId);
+  // Scroll to section (offset for sticky header)
+  const el = document.getElementById(sectionId);
   const top = el.getBoundingClientRect().top + window.scrollY - 80;
   window.scrollTo({ top, behavior: 'smooth' });
 }
 
-// ── toggleDetails ────────────────────────────────────────────
 function toggleDetails(button) {
   const fullDesc = button.closest('.card-content').querySelector('.full-desc');
   if (fullDesc.style.display === 'block') {
@@ -1498,7 +249,6 @@ function toggleDetails(button) {
   }
 }
 
-// ── changeImage ──────────────────────────────────────────────
 function changeImage(thumb) {
   const gallery = thumb.closest('.product-gallery');
   gallery.querySelector('.main-image').src = thumb.src;
@@ -1506,17 +256,18 @@ function changeImage(thumb) {
   thumb.classList.add('active');
 }
 
-// ── searchProducts ────────────────────────────────────────────
-// Works for both the Home section and individual category sections
+// Search runs ONLY on Enter key press (or when input is cleared)
 function searchProducts(input) {
-  const filter = input.value.toLowerCase();
+  const filter = input.value.trim().toLowerCase();
   const section = input.closest('.section');
   section.querySelectorAll('.card').forEach(card => {
     const title = card.querySelector('h3') ? card.querySelector('h3').textContent.toLowerCase() : '';
     const desc  = card.querySelector('.short-desc') ? card.querySelector('.short-desc').textContent.toLowerCase() : '';
-    card.style.display = (!filter.includes(filter) || desc.includes(filter)) ? '' : 'none';
+    // Show all if empty; otherwise only matching cards
+    card.style.display = (!filter || title.includes(filter) || desc.includes(filter)) ? '' : 'none';
   });
 }
+
 // Populate the Home section with clones of all cards on page load
 function loadHomeProducts() {
   const homeGrid = document.getElementById('home-products');
@@ -1530,12 +281,16 @@ function loadHomeProducts() {
 
 window.addEventListener('load', loadHomeProducts);
 
-</script>
- <script>
+// ── Admin Panel — open with Ctrl+Shift+A ─────────────────────
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+    e.preventDefault();
+    document.getElementById('admin-panel').classList.toggle('open');
+  }
+});
 
-// ── Admin Panel ──────────────────────────────────────────────
-function toggleAdmin() {
-  document.getElementById('admin-panel').classList.toggle('open');
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
 }
 
 function addThumbField() {
@@ -1609,13 +364,15 @@ function addProduct() {
 }
 
 </script>
-  <!-- ADMIN TOGGLE BUTTON -->
-<button id="admin-toggle" onclick="toggleAdmin()">+ Add Product</button>
+
+
+<!-- ADMIN TOGGLE BUTTON -->
+<button id="admin-toggle">+ Add Product</button>
 
 <!-- ADMIN PANEL -->
 <div id="admin-panel">
   <div class="admin-box">
-    <button class="admin-close" onclick="toggleAdmin()">&#x2715;</button>
+    <button class="admin-close" onclick="closeAdmin()">&#x2715;</button>
     <h2>Add New Product</h2>
     <div class="admin-field"><label>Product Name *</label><input type="text" id="ap-name" placeholder="e.g. Rose Face Serum"></div>
     <div class="admin-field"><label>Category *</label><select id="ap-section"><option value="beauty">Beauty</option><option value="tech">Tech</option><option value="gaming">Gaming</option></select></div>
@@ -1634,41 +391,5 @@ function addProduct() {
   </div>
 </div>
 
-  <script>
-  function changeImage(img){
-
-const gallery = img.closest(".product-gallery");
-
-const mainImage = gallery.querySelector(".main-image");
-
-mainImage.src = img.src;
-
-gallery.querySelectorAll(".thumb").forEach(t=>{
-t.classList.remove("active");
-});
-
-img.classList.add("active");
-
-}
-  </script>
-  <script>
-  function toggleDetails(btn){
-
-const desc = btn.parentElement.querySelector(".long-desc");
-
-if(desc.style.display === "none"){
-desc.style.display = "block";
-btn.textContent = "Hide";
-}else{
-desc.style.display = "none";
-btn.textContent = "Details";
-}
-
-}
-  </script>
-  
 </body>
-
 </html>
-
- 
