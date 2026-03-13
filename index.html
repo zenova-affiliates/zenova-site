@@ -271,7 +271,7 @@ function searchProducts(input) {
 // Populate the Home section with clones of all cards on page load
 function loadHomeProducts() {
   const homeGrid = document.getElementById('home-products');
-  homeGrid.innerHTML = ''; // prevent duplicate clones on reload
+  homeGrid.innerHTML = '';
   ['beauty', 'tech', 'gaming'].forEach(id => {
     document.querySelectorAll('#' + id + ' .card').forEach(card => {
       homeGrid.appendChild(card.cloneNode(true));
@@ -279,7 +279,47 @@ function loadHomeProducts() {
   });
 }
 
-window.addEventListener('load', loadHomeProducts);
+// Build a card element from a saved product object
+function buildCard(p) {
+  const allImgs = [p.mainImg, ...p.extraImgs];
+  const hasMultiple = allImgs.length > 1;
+  let cardHTML = '';
+  if (hasMultiple) {
+    const thumbsHTML = allImgs.map((src, i) =>
+      `<img src="${src}" class="thumb ${i===0?'active':''}" onclick="changeImage(this)">`
+    ).join('');
+    cardHTML = `<div class="product-gallery"><img src="${p.mainImg}" class="main-image"><div class="thumbnails">${thumbsHTML}</div></div>`;
+  } else {
+    cardHTML = `<img src="${p.mainImg}" style="width:100%;max-height:220px;object-fit:cover;display:block;">`;
+  }
+  cardHTML += `<div class="card-content">
+    <h3>${p.name}</h3>
+    <p class="short-desc">${p.shortDesc}</p>
+    <p class="full-desc">${p.fullDesc}</p>
+    <button class="details-btn" onclick="toggleDetails(this)">Details</button>
+    <div class="price">${p.price}</div>
+    <a href="${p.link || '#'}" class="btn" target="_blank">Buy Now</a>
+  </div>`;
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = cardHTML;
+  return card;
+}
+
+// Load saved products from localStorage and inject them into the page
+function loadSavedProducts() {
+  const saved = JSON.parse(localStorage.getItem('zenova_products') || '[]');
+  saved.forEach(p => {
+    const card = buildCard(p);
+    const sectionGrid = document.querySelector('#' + p.section + ' .products');
+    if (sectionGrid) sectionGrid.appendChild(card);
+  });
+}
+
+window.addEventListener('load', function() {
+  loadSavedProducts();   // inject saved products first
+  loadHomeProducts();    // then clone everything (including saved) into Home
+});
 
 // ── Admin Panel — open with Ctrl+Shift+A ─────────────────────
 document.addEventListener('keydown', function(e) {
@@ -323,34 +363,22 @@ function addProduct() {
 
   const extraImgs = Array.from(document.querySelectorAll('.admin-thumb-input'))
     .map(i => i.value.trim()).filter(Boolean);
-  const allImgs = [mainImg, ...extraImgs];
-  const hasMultiple = allImgs.length > 1;
 
-  let cardHTML = '';
-  if (hasMultiple) {
-    const thumbsHTML = allImgs.map((src, i) =>
-      `<img src="${src}" class="thumb ${i===0?'active':''}" onclick="changeImage(this)">`
-    ).join('');
-    cardHTML = `<div class="product-gallery"><img src="${mainImg}" class="main-image"><div class="thumbnails">${thumbsHTML}</div></div>`;
-  } else {
-    cardHTML = `<img src="${mainImg}" style="width:100%;max-height:220px;object-fit:cover;display:block;">`;
-  }
+  // Save to localStorage so it persists after refresh
+  const product = { name, price, section, link, shortDesc, fullDesc, mainImg, extraImgs };
+  const saved = JSON.parse(localStorage.getItem('zenova_products') || '[]');
+  saved.push(product);
+  localStorage.setItem('zenova_products', JSON.stringify(saved));
 
-  cardHTML += `<div class="card-content">
-    <h3>${name}</h3>
-    <p class="short-desc">${shortDesc}</p>
-    <p class="full-desc">${fullDesc}</p>
-    <button class="details-btn" onclick="toggleDetails(this)">Details</button>
-    <div class="price">${price}</div>
-    <a href="${link || '#'}" class="btn" target="_blank">Buy Now</a>
-  </div>`;
-
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = cardHTML;
-
+  // Add card to the section
+  const card = buildCard(product);
   document.querySelector('#' + section + ' .products').appendChild(card);
+
+  // Add clone to Home section too
   document.getElementById('home-products').appendChild(card.cloneNode(true));
+
+  // Switch to section so card is visible
+  openSection(section);
 
   const msg = document.getElementById('admin-msg');
   msg.style.display = 'block';
@@ -390,93 +418,6 @@ function addProduct() {
     <div id="admin-msg" class="admin-msg"></div>
   </div>
 </div>
-<script>
 
-const products = [
-
-{
-name:"RGB Gaming Mouse",
-price:"Rs.2570",
-section:"tech",
-images:[
-"https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/785405df6369d7bf47e59a2d173b23fe.jpg",
-"https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/f03bbd6536163de93d0273b8ffcf1eb3.jpg"
-],
-shortDesc:"Silver carved mechanical gaming mouse",
-longDesc:"High precision wired gaming mouse suitable for desktop and laptop use."
-},
-
-{
-name:"Luxurious Wrist Watch",
-price:"Rs.1078",
-section:"tech",
-images:[
-"https://img.kwcdn.com/product/fancy/061a9ef9-e1da-4160-8867-381e592eeb14.jpg"
-],
-shortDesc:"Elegant wrist watch",
-longDesc:"Premium quality watch with stylish design for everyday wear."
-}
-
-];
-
-function loadHomeProducts(){
-
-const homeContainer = document.getElementById("home-products");
-
-products.forEach(product => {
-
-const card = document.createElement("div");
-card.className = "card";
-
-let thumbnails = "";
-
-product.images.forEach((img,i)=>{
-
-thumbnails += `
-<img src="${img}" 
-class="thumb ${i==0?'active':''}" 
-onclick="changeImage(this)">
-`;
-
-});
-
-card.innerHTML = `
-
-<div class="product-gallery">
-
-<img src="${product.images[0]}" class="main-image">
-
-<div class="thumbnails">
-${thumbnails}
-</div>
-
-</div>
-
-<div class="card-content">
-
-<h3>${product.name}</h3>
-
-<p class="short-desc">${product.shortDesc}</p>
-
-<p class="full-desc">${product.longDesc}</p>
-
-<button class="details-btn" onclick="toggleDetails(this)">Details</button>
-
-<div class="price">${product.price}</div>
-
-</div>
-
-`;
-
-homeContainer.appendChild(card);
-
-});
-
-}
-
-window.onload = loadHomeProducts;
-
-</script>
 </body>
 </html>
-
