@@ -1901,7 +1901,7 @@ function rebuildAllCards() {
 
     <!-- ADD TAB -->
     <div id="tab-add">
-      <div class="admin-field"><label>Product Name *</label><input type="text" id="ap-name" placeholder="e.g. Rose Face Serum"></div>
+      <div class="admin-field"><label>Product Name *</label><input type="text" id="ap-name" placeholder="Type Here Product Name"></div>
       <div class="admin-field"><label>Category *</label><select id="ap-section"><option value="beauty">Beauty</option><option value="tech">Tech</option><option value="gaming">Gaming</option></select></div>
       <div class="admin-field"><label>Price</label><input type="text" id="ap-price" placeholder="e.g. Rs.999"></div>
       <div class="admin-field"><label>Buy Now Link</label><input type="url" id="ap-link" placeholder="https://..."></div>
@@ -1926,6 +1926,29 @@ function rebuildAllCards() {
 
   </div>
 </div>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD1H6TClrILVXaPX-7FidvVZmpJLsvumPk",
+    authDomain: "zenova-store.firebaseapp.com",
+    projectId: "zenova-store",
+    storageBucket: "zenova-store.firebasestorage.app",
+    messagingSenderId: "1086423258032",
+    appId: "1:1086423258032:web:5e39a8196fc3763188fc75",
+    measurementId: "G-WEFZJJLVWJ"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
  </body>
 
 </html>
