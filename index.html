@@ -713,7 +713,116 @@ display:block;
     font-size:13px;
     padding:30px 0;
   }
+  /* 🔐 Admin Panel Background */
+#admin-panel{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.85);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 9999;
+backdrop-filter: blur(8px);
+}
 
+/* 📦 Login Box */
+#admin-login{
+background: #111;
+padding: 30px;
+border-radius: 15px;
+width: 300px;
+text-align: center;
+box-shadow: 0 0 30px rgba(0,255,255,0.2);
+animation: fadeIn 0.3s ease;
+  display
+}
+
+/* ✨ Title */
+#admin-login h2{
+color: #00ffff;
+margin-bottom: 20px;
+font-family: 'Orbitron', sans-serif;
+}
+
+/* 📥 Inputs */
+#admin-login input{
+width: 100%;
+padding: 12px;
+margin: 10px 0;
+border: none;
+border-radius: 8px;
+outline: none;
+background: #1a1a1a;
+color: #fff;
+font-size: 14px;
+transition: 0.3s;
+}
+
+/* ✨ Input Focus Effect */
+#admin-login input:focus{
+box-shadow: 0 0 10px #00ffff;
+background: #222;
+}
+
+/* 🔘 Button */
+#admin-login button{
+width: 100%;
+padding: 12px;
+margin-top: 15px;
+border: none;
+border-radius: 8px;
+background: linear-gradient(45deg,#00ffff,#00ff99);
+color: #000;
+font-weight: bold;
+cursor: pointer;
+transition: 0.3s;
+}
+
+/* 🔥 Button Hover */
+#admin-login button:hover{
+transform: scale(1.05);
+box-shadow: 0 0 15px #00ffff;
+}
+
+/* ✨ Animation */
+@keyframes fadeIn{
+from{
+opacity: 0;
+transform: translateY(-20px);
+}
+to{
+opacity: 1;
+transform: translateY(0);
+}
+}
+  /* ❌ Close Button */
+#admin-panel button{
+position: absolute;
+top: 20px;
+right: 20px;
+padding: 8px 15px;
+border: none;
+border-radius: 8px;
+background: linear-gradient(45deg,#ff4d4d,#ff0000);
+color: #fff;
+font-weight: bold;
+cursor: pointer;
+transition: 0.3s;
+}
+
+/* 🔥 Hover Effect */
+#admin-panel button:hover{
+transform: scale(1.1);
+box-shadow: 0 0 15px #ff0000;
+}
+
+/* ✨ Click Effect */
+#admin-panel button:active{
+transform: scale(0.95);
+}
 </style>
 </head>
 <body>
@@ -1671,11 +1780,22 @@ function showMsg(text) {
   setTimeout(() => msg.style.display = 'none', 3000);
 }
 
-// ── Admin shortcuts ───────────────────────────────────────────
-document.addEventListener('keydown', function(e) {
-  if (e.ctrlKey && e.shiftKey && e.key === 'A') { e.preventDefault(); document.getElementById('admin-panel').classList.toggle('open'); }
+document.addEventListener("keydown", function(e){
+
+if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a"){
+
+const panel = document.getElementById("admin-panel");
+
+panel.style.display = "flex"; // show panel
+
+// show login first
+document.getElementById("admin-login").style.display = "block";
+document.getElementById("admin-content").style.display = "none";
+
+}
+
 });
-function closeAdmin() { document.getElementById('admin-panel').classList.remove('open'); }
+  function closeAdmin() { document.getElementById('admin-panel').classList.remove('open'); }
 
 function addThumbField() {
   const container = document.getElementById('thumb-fields');
@@ -1687,7 +1807,9 @@ function addThumbField() {
   input.style.cssText = 'width:100%;padding:10px 14px;background:rgba(0,0,0,0.4);border:1px solid var(--maroon-mid);border-radius:6px;color:var(--text-main);font-size:13px;outline:none;';
   wrap.appendChild(input); container.appendChild(wrap);
 }
-
+function closeAdmin(){
+document.getElementById("admin-panel").style.display = "none";
+}
 function switchAdminTab(tab) {
   document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
   if (tab === 'add') {
@@ -1709,7 +1831,22 @@ function switchAdminTab(tab) {
 <button id="admin-toggle">+ Add Product</button>
 
 <!-- ADMIN PANEL -->
-<div id="admin-panel">
+ <div id="admin-panel">
+<button onclick="closeAdmin()">Close</button>
+<!-- LOGIN SCREEN -->
+<div id="admin-login">
+  <h2>Admin Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- REAL ADMIN PANEL -->
+<div id="admin-content" style="display:none;">
+  <!-- YOUR EXISTING ADMIN PANEL CODE HERE -->
+</div>
+
+</div> 
   <div class="admin-box">
     <button class="admin-close" onclick="closeAdmin()">&#x2715;</button>
     <h2 id="admin-title">Add New Product</h2>
@@ -1872,6 +2009,53 @@ function switchAdminTab(tab) {
     rebuildAllCards();
     if (window.renderEditList) window.renderEditList();
   };
+</script>
+  <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "YOURKEY",
+  authDomain: "YOURDOMAIN",
+  projectId: "YOURPROJECTID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+
+if(!user){
+document.getElementById("admin-content").style.display = "none";
+document.getElementById("admin-login").style.display = "block";
+}
+
+});
+window.login = function(){
+
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+signInWithEmailAndPassword(auth, email, password)
+.then((userCredential)=>{
+
+// ✅ LOGIN SUCCESS
+alert("Login Successful");
+
+// HIDE LOGIN
+document.getElementById("admin-login").style.display = "none";
+
+// SHOW ADMIN PANEL
+document.getElementById("admin-content").style.display = "block";
+
+})
+.catch(err=>{
+alert("Wrong Email or Password ❌");
+});
+
+}
 </script>
 
  </body>
