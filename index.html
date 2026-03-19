@@ -1286,19 +1286,24 @@ button,a
     </div>
   </div>
 </div>
-
 <!-- ══════════════════════════════
-     FIREBASE — SINGLE IMPORT BLOCK
-     Using Firebase v10 (modular)
+     FIREBASE MODULE SCRIPT — FIXED
+     Changes:
+     1. Single getFirestore import (removed duplicate)
+     2. Global window.productsArray shared with vanilla JS
+     3. onSnapshot se real-time sync + array update
+     4. Home grid mein randomly shuffle karke dikhana
+     5. Category grids bhi update hoti hain real-time
 ══════════════════════════════ -->
 <script type="module">
-import { initializeApp }              from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
-                                       from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy }
-                                       from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ── Firebase config ──────────────────────────────────────────
+// ── Firebase config ──────────────────────────────────
 const firebaseConfig = {
   apiKey:            "AIzaSyD1H6TClrILVXaPX-7FidvVZmpJLsvumPk",
   authDomain:        "zenova-store.firebaseapp.com",
@@ -1313,20 +1318,90 @@ const auth = getAuth(app);
 const db   = getFirestore(app);
 const col  = collection(db, 'products');
 
-// ── Auth state listener ──────────────────────────────────────
+// ── Global products array — vanilla JS bhi access kar sakta hai ──
+window.firestoreProducts = []; // { id, ...data }
+
+// ── Auth state listener ───────────────────────────────
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is logged in → show admin content, hide login
-    document.getElementById('admin-login-screen').style.display  = 'none';
-    document.getElementById('admin-content-screen').style.display = 'block';
-  } else {
-    // User is logged out → show login, hide admin content
-    document.getElementById('admin-login-screen').style.display  = 'block';
-    document.getElementById('admin-content-screen').style.display = 'none';
-  }
+  document.getElementById('admin-login-screen').style.display  = user ? 'none'  : 'block';
+  document.getElementById('admin-content-screen').style.display = user ? 'block' : 'none';
 });
 
-// ── Login ────────────────────────────────────────────────────
+// ── REAL-TIME LISTENER — onSnapshot ──────────────────
+// Jab bhi Firestore mein koi change ho (add/edit/delete),
+// yeh automatically fire hota hai aur array + UI update hoti hai
+onSnapshot(col, (snapshot) => {
+  // Array reset karo
+  window.firestoreProducts = [];
+
+  snapshot.forEach(docSnap => {
+    window.firestoreProducts.push({ id: docSnap.id, ...docSnap.data() });
+  });
+
+  // Home page pe randomly dikhao (static + firestore mix)
+  renderHomeGrid();
+
+  // Category grids mein bhi firestore wale cards update karo
+  renderCategoryFirestoreCards();
+
+  // Loading spinner band karo
+  const loader = document.getElementById('home-loading');
+  if (loader) loader.style.display = 'none';
+});
+
+// ── Home grid: static cards + firestore cards randomly shuffle ──
+function renderHomeGrid() {
+  const homeGrid = document.getElementById('home-products');
+  if (!homeGrid) return;
+
+  // Pehle existing firestore cards hata do (static rehne do)
+  homeGrid.querySelectorAll('.card[data-firestore]').forEach(c => c.remove());
+
+  // Firestore wale cards banao aur array mein rakho
+  const fsCards = window.firestoreProducts.map(p => {
+    const card = window.buildCard(p, p.id);
+    card.setAttribute('data-firestore', '1');
+    return card;
+  });
+
+  // Static cards collect karo
+  const staticCards = Array.from(homeGrid.querySelectorAll('.card:not([data-firestore])'));
+
+  // Sab combine karo
+  const allCards = [...staticCards, ...fsCards];
+
+  // Fisher-Yates shuffle — random order
+  for (let i = allCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [allCards[i], allCards[j]] = [allCards[j], allCards[i]];
+  }
+
+  // Grid saaf karo aur shuffled order mein daalo
+  homeGrid.innerHTML = '';
+  allCards.forEach(card => homeGrid.appendChild(card));
+}
+
+// ── Category grids: sirf firestore wale cards update karo ──
+function renderCategoryFirestoreCards() {
+  ['beauty', 'tech', 'gaming'].forEach(section => {
+    const grid = document.getElementById(section + '-products');
+    if (!grid) return;
+
+    // Pehle purane firestore cards hata do
+    grid.querySelectorAll('.card[data-firestore]').forEach(c => c.remove());
+
+    // Iss category ke firestore products filter karo
+    window.firestoreProducts
+      .filter(p => p.section === section)
+      .forEach(p => {
+        const card = window.buildCard(p, p.id);
+        card.setAttribute('data-firestore', '1');
+        grid.appendChild(card);
+      });
+  });
+}
+
+// ── Login ─────────────────────────────────────────────
 window.adminLogin = function() {
   const email    = document.getElementById('admin-email').value.trim();
   const password = document.getElementById('admin-password').value;
@@ -1339,23 +1414,19 @@ window.adminLogin = function() {
       document.getElementById('admin-password').value = '';
     })
     .catch(err => {
-      errEl.textContent    = getAuthErrorMessage(err.code);
-      errEl.style.display  = 'block';
+      const msgs = {
+        'auth/invalid-email':      'Invalid email address.',
+        'auth/user-not-found':     'No account found with this email.',
+        'auth/wrong-password':     'Incorrect password.',
+        'auth/invalid-credential': 'Invalid email or password.',
+        'auth/too-many-requests':  'Too many attempts. Try again later.'
+      };
+      errEl.textContent   = msgs[err.code] || 'Login failed.';
+      errEl.style.display = 'block';
     });
 };
 
-function getAuthErrorMessage(code) {
-  const msgs = {
-    'auth/invalid-email':      'Invalid email address.',
-    'auth/user-not-found':     'No account found with this email.',
-    'auth/wrong-password':     'Incorrect password.',
-    'auth/invalid-credential': 'Invalid email or password.',
-    'auth/too-many-requests':  'Too many attempts. Please try again later.'
-  };
-  return msgs[code] || 'Login failed. Please try again.';
-}
-
-// ── Logout ───────────────────────────────────────────────────
+// ── Logout ────────────────────────────────────────────
 window.adminLogout = function() {
   signOut(auth).then(() => {
     closeAdmin();
@@ -1363,28 +1434,7 @@ window.adminLogout = function() {
   });
 };
 
-// ── Load products from Firestore ────────────────────────────
-async function loadFirestoreProducts() {
-  try {
-    const snapshot = await getDocs(col);
-    snapshot.forEach(docSnap => {
-      const p    = docSnap.data();
-      const card = buildCard(p, docSnap.id);
-      // Append to the correct section grid
-      const grid = document.getElementById(p.section + '-products');
-      if (grid) grid.appendChild(card);
-      // Also append a clone to home
-      const homeGrid = document.getElementById('home-products');
-      if (homeGrid) homeGrid.appendChild(card.cloneNode(true));
-    });
-  } catch (e) {
-    console.error('Firestore load error:', e);
-  } finally {
-    document.getElementById('home-loading').style.display = 'none';
-  }
-}
-
-// ── Submit (Add or Update) product ──────────────────────────
+// ── Submit (Add or Update) ────────────────────────────
 window.submitProduct = async function() {
   const name      = document.getElementById('ap-name').value.trim();
   const price     = document.getElementById('ap-price').value.trim();
@@ -1395,7 +1445,7 @@ window.submitProduct = async function() {
   const mainImg   = document.getElementById('ap-img').value.trim();
   const editId    = document.getElementById('ap-edit-id').value;
 
-  if (!name || !mainImg) { alert('Please fill in Product Name and Image URL.'); return; }
+  if (!name || !mainImg) { alert('Product Name aur Image URL zaroori hain.'); return; }
 
   const extraImgs = Array.from(document.querySelectorAll('.admin-thumb-input'))
     .map(i => i.value.trim()).filter(Boolean);
@@ -1404,110 +1454,102 @@ window.submitProduct = async function() {
 
   try {
     if (editId) {
-      // UPDATE
       await updateDoc(doc(db, 'products', editId), product);
-      showMsg('✓ "' + name + '" updated!');
+      showMsg('✓ "' + name + '" update ho gaya!');
     } else {
-      // ADD
-      const docRef = await addDoc(col, product);
-      const card   = buildCard(product, docRef.id);
-      document.getElementById(section + '-products').appendChild(card);
-      document.getElementById('home-products').appendChild(card.cloneNode(true));
+      await addDoc(col, product);
+      // onSnapshot automatically trigger hoga — manual card add ki zaroorat nahi
       openSection(section);
-      showMsg('✓ "' + name + '" added to ' + section.charAt(0).toUpperCase() + section.slice(1) + '!');
+      showMsg('✓ "' + name + '" store mein add ho gaya!');
     }
     clearAdminForm();
   } catch (e) {
     console.error('Save error:', e);
-    alert('Error saving product. Check console for details.');
+    alert('Product save nahi hua. Console check karein.');
   }
 };
 
-// ── Render edit list ─────────────────────────────────────────
-window.renderEditList = async function() {
+// ── Edit ──────────────────────────────────────────────
+window.editProduct = function(docId) {
+  const p = window.firestoreProducts.find(x => x.id === docId);
+  if (!p) return;
+
+  switchAdminTab('add');
+  document.getElementById('ap-name').value    = p.name      || '';
+  document.getElementById('ap-price').value   = p.price     || '';
+  document.getElementById('ap-section').value = p.section   || 'beauty';
+  document.getElementById('ap-link').value    = p.link      || '';
+  document.getElementById('ap-short').value   = p.shortDesc || '';
+  document.getElementById('ap-full').value    = p.fullDesc  || '';
+  document.getElementById('ap-img').value     = p.mainImg   || '';
+  document.getElementById('ap-edit-id').value = docId;
+  document.getElementById('ap-submit-btn').textContent = 'Save Changes';
+
+  const thumbContainer = document.getElementById('thumb-fields');
+  thumbContainer.innerHTML = '';
+  (p.extraImgs || []).forEach(src => {
+    const wrap = document.createElement('div'); wrap.style.marginTop = '8px';
+    const input = document.createElement('input');
+    input.type = 'url'; input.className = 'admin-thumb-input'; input.value = src;
+    input.style.cssText = 'width:100%;padding:10px 14px;background:rgba(0,0,0,0.4);border:1px solid var(--maroon-mid);border-radius:6px;color:var(--text-main);font-size:13px;outline:none;';
+    wrap.appendChild(input); thumbContainer.appendChild(wrap);
+  });
+};
+
+// ── Delete ────────────────────────────────────────────
+window.deleteProduct = async function(docId) {
+  if (!confirm('Yeh product delete kar dein? Wapis nahi aayega.')) return;
+  try {
+    await deleteDoc(doc(db, 'products', docId));
+    // onSnapshot automatically cards hata dega
+    if (window.renderEditList) window.renderEditList();
+    showMsg('Product delete ho gaya.');
+  } catch(e) { console.error(e); alert('Delete nahi hua.'); }
+};
+
+// ── Render edit list ──────────────────────────────────
+window.renderEditList = function() {
   const list  = document.getElementById('edit-list');
   const empty = document.getElementById('edit-empty');
   list.innerHTML = '';
-  try {
-    const snapshot = await getDocs(col);
-    if (snapshot.empty) { empty.style.display = 'block'; return; }
-    empty.style.display = 'none';
-    snapshot.forEach(docSnap => {
-      const p    = docSnap.data();
-      const item = document.createElement('div');
-      item.className = 'edit-item';
-      item.innerHTML = `
-        <img src="${p.mainImg}" onerror="this.src='https://placehold.co/54x54/1e0510/f5c518?text=?'">
-        <div class="edit-item-info">
-          <strong>${p.name}</strong>
-          <span>${capitalize(p.section)} · ${p.price}</span>
-        </div>
-        <div class="edit-item-btns">
-          <button class="edit-btn edit" onclick="editProduct('${docSnap.id}')">Edit</button>
-          <button class="edit-btn del"  onclick="deleteProduct('${docSnap.id}')">Delete</button>
-        </div>`;
-      list.appendChild(item);
-    });
-  } catch(e) { console.error(e); }
+
+  if (!window.firestoreProducts.length) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  window.firestoreProducts.forEach(p => {
+    const item = document.createElement('div');
+    item.className = 'edit-item';
+    item.innerHTML = `
+      <img src="${p.mainImg}" onerror="this.src='https://placehold.co/54x54/1e0510/f5c518?text=?'">
+      <div class="edit-item-info">
+        <strong>${p.name}</strong>
+        <span>${capitalize(p.section)} · ${p.price}</span>
+      </div>
+      <div class="edit-item-btns">
+        <button class="edit-btn edit" onclick="editProduct('${p.id}')">Edit</button>
+        <button class="edit-btn del"  onclick="deleteProduct('${p.id}')">Delete</button>
+      </div>`;
+    list.appendChild(item);
+  });
 };
 
-// ── Edit product ─────────────────────────────────────────────
-window.editProduct = async function(docId) {
-  try {
-    const snapshot = await getDocs(col);
-    let p = null;
-    snapshot.forEach(d => { if (d.id === docId) p = d.data(); });
-    if (!p) return;
-    switchAdminTab('add');
-    document.getElementById('ap-name').value    = p.name    || '';
-    document.getElementById('ap-price').value   = p.price   || '';
-    document.getElementById('ap-section').value = p.section || 'beauty';
-    document.getElementById('ap-link').value    = p.link    || '';
-    document.getElementById('ap-short').value   = p.shortDesc || '';
-    document.getElementById('ap-full').value    = p.fullDesc  || '';
-    document.getElementById('ap-img').value     = p.mainImg   || '';
-    document.getElementById('ap-edit-id').value = docId;
-    document.getElementById('ap-submit-btn').textContent = 'Save Changes';
-    const thumbContainer = document.getElementById('thumb-fields');
-    thumbContainer.innerHTML = '';
-    (p.extraImgs || []).forEach(src => {
-      const wrap  = document.createElement('div'); wrap.style.marginTop = '8px';
-      const input = document.createElement('input');
-      input.type = 'url'; input.className = 'admin-thumb-input'; input.value = src;
-      input.style.cssText = 'width:100%;padding:10px 14px;background:rgba(0,0,0,0.4);border:1px solid var(--maroon-mid);border-radius:6px;color:var(--text-main);font-size:13px;outline:none;';
-      wrap.appendChild(input); thumbContainer.appendChild(wrap);
-    });
-  } catch(e) { console.error(e); }
-};
-
-// ── Delete product ───────────────────────────────────────────
-window.deleteProduct = async function(docId) {
-  if (!confirm('Delete this product? This cannot be undone.')) return;
-  try {
-    await deleteDoc(doc(db, 'products', docId));
-    // Remove from DOM
-    document.querySelectorAll(`.card[data-id="${docId}"]`).forEach(c => c.remove());
-    if (window.renderEditList) window.renderEditList();
-    showMsg('Product deleted.');
-  } catch(e) { console.error(e); alert('Delete failed.'); }
-};
-
-// ── On page load: copy static cards to home, then fetch Firestore ──
+// ── Page load: static cards ko home mein copy karo ───
 window.addEventListener('load', () => {
-  // Copy all static cards from beauty/tech/gaming into home grid
   const homeGrid = document.getElementById('home-products');
   ['beauty-products','tech-products','gaming-products'].forEach(gridId => {
     document.querySelectorAll('#' + gridId + ' .card').forEach(card => {
-      homeGrid.appendChild(card.cloneNode(true));
+      const clone = card.cloneNode(true);
+      homeGrid.appendChild(clone);
     });
   });
-  // Then load any Firestore-added products on top
-  loadFirestoreProducts();
+  // onSnapshot already chal raha hai — firestore cards automatically aayenge
 });
-
 </script>
 
-<!-- ── Vanilla JS helpers (no Firebase needed) ─────────────── -->
+<!-- ── Vanilla JS helpers ─────────────────────────── -->
 <script>
 function openSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1522,8 +1564,8 @@ function openSection(id) {
 
 function toggleDetails(btn) {
   const fd = btn.closest('.card-content').querySelector('.full-desc');
-  if (fd.style.display === 'block') { fd.style.display = 'none'; btn.textContent = 'Details'; }
-  else { fd.style.display = 'block'; btn.textContent = 'Hide'; }
+  if (fd.style.display === 'block') { fd.style.display='none'; btn.textContent='Details'; }
+  else { fd.style.display='block'; btn.textContent='Hide'; }
 }
 
 function changeImage(thumb) {
@@ -1542,9 +1584,11 @@ function searchProducts(input) {
   });
 }
 
-function buildCard(p, docId) {
+// buildCard — global taaki Firebase module bhi use kar sake
+window.buildCard = function(p, docId) {
   const allImgs    = [p.mainImg, ...(p.extraImgs || [])].filter(Boolean);
   const hasMultiple = allImgs.length > 1;
+
   let inner = hasMultiple
     ? `<div class="product-gallery">
          <img src="${p.mainImg}" class="main-image">
@@ -1568,7 +1612,7 @@ function buildCard(p, docId) {
   if (docId) card.setAttribute('data-id', docId);
   card.innerHTML = inner;
   return card;
-}
+};
 
 function showMsg(text) {
   const msg = document.getElementById('admin-msg');
@@ -1620,7 +1664,6 @@ function capitalize(str) {
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 }
 
-// Open admin panel with Ctrl+Shift+A
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
     e.preventDefault();
@@ -1628,6 +1671,7 @@ document.addEventListener('keydown', e => {
   }
 });
 </script>
+
 </body>
 </html>
 
