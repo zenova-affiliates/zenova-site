@@ -1445,7 +1445,7 @@ window.submitProduct = async function() {
   const mainImg   = document.getElementById('ap-img').value.trim();
   const editId    = document.getElementById('ap-edit-id').value;
 
-  if (!name || !mainImg) { alert('Product Name aur Image URL zaroori hain.'); return; }
+  if (!name || !mainImg) { alert('Please enter product name and img URL.'); return; }
 
   const extraImgs = Array.from(document.querySelectorAll('.admin-thumb-input'))
     .map(i => i.value.trim()).filter(Boolean);
@@ -1455,17 +1455,17 @@ window.submitProduct = async function() {
   try {
     if (editId) {
       await updateDoc(doc(db, 'products', editId), product);
-      showMsg('✓ "' + name + '" update ho gaya!');
+      showMsg('✓ "' + name + '" update successful!');
     } else {
       await addDoc(col, product);
       // onSnapshot automatically trigger hoga — manual card add ki zaroorat nahi
       openSection(section);
-      showMsg('✓ "' + name + '" store mein add ho gaya!');
+      showMsg('✓ "' + name + '" Added to the store!');
     }
     clearAdminForm();
   } catch (e) {
     console.error('Save error:', e);
-    alert('Product save nahi hua. Console check karein.');
+    alert('Product not saved. Check Console.');
   }
 };
 
@@ -1498,13 +1498,13 @@ window.editProduct = function(docId) {
 
 // ── Delete ────────────────────────────────────────────
 window.deleteProduct = async function(docId) {
-  if (!confirm('Yeh product delete kar dein? Wapis nahi aayega.')) return;
+  if (!confirm('Are you sure and want to delete this product? It cannot be recovered.')) return;
   try {
     await deleteDoc(doc(db, 'products', docId));
     // onSnapshot automatically cards hata dega
     if (window.renderEditList) window.renderEditList();
-    showMsg('Product delete ho gaya.');
-  } catch(e) { console.error(e); alert('Delete nahi hua.'); }
+    showMsg('Product deleted.');
+  } catch(e) { console.error(e); alert('Product not deleted.'); }
 };
 
 // ── Render edit list ──────────────────────────────────
