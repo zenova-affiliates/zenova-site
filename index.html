@@ -1109,6 +1109,38 @@
       .hero h1 { font-size: 34px; }
     }
 
+    /* ── Product Badge Tags ── */
+    .card-img-wrap, .product-gallery { position: relative; }
+
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 5px 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .badge-trending {
+      background: var(--rose-dark);
+      color: #fff;
+    }
+
+    .badge-bestseller {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .badge-new {
+      background: var(--rose-deep);
+      color: #fff;
+    }
+
     /* ── Page Load Animation ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -1465,6 +1497,15 @@
             </select>
           </div>
           <div class="admin-field">
+            <label>Product Tag</label>
+            <select id="ap-tag">
+              <option value="">No Tag</option>
+              <option value="trending">🔥 Trending</option>
+              <option value="bestseller">⭐ Best Seller</option>
+              <option value="new">✨ New</option>
+            </select>
+          </div>
+          <div class="admin-field">
             <label>Price in PKR (Rs.) *</label>
             <input type="number" id="ap-price-pkr" placeholder="e.g. 999">
           </div>
@@ -1740,10 +1781,11 @@
     const fullDesc  = document.getElementById('ap-full').value.trim();
     const mainImg   = document.getElementById('ap-img').value.trim();
     const editId    = document.getElementById('ap-edit-id').value;
+    const tag       = document.getElementById('ap-tag').value;
     if (!name || !mainImg || !pricePkr) { alert('Name, Image URL, and Price are required.'); return; }
     const extraImgs = Array.from(document.querySelectorAll('.admin-thumb-input'))
       .map(i => i.value.trim()).filter(Boolean);
-    const product = { name, pricePkr, section, link, shortDesc, fullDesc, mainImg, extraImgs, createdAt: Date.now() };
+    const product = { name, pricePkr, section, link, shortDesc, fullDesc, mainImg, extraImgs, tag, createdAt: Date.now() };
     try {
       if (editId) {
         await updateDoc(doc(db, 'products', editId), product);
@@ -1769,6 +1811,7 @@
     document.getElementById('ap-full').value      = p.fullDesc  || '';
     document.getElementById('ap-img').value       = p.mainImg   || '';
     document.getElementById('ap-edit-id').value   = docId;
+    document.getElementById('ap-tag').value       = p.tag       || '';
     document.getElementById('ap-submit-btn').textContent = 'Save Changes';
     const thumbContainer = document.getElementById('thumb-fields');
     thumbContainer.innerHTML = '';
@@ -1867,14 +1910,23 @@
       const currency    = window.userCurrency || { symbol: 'Rs.', rate: 1 };
       const priceText   = p.pricePkr ? window.convertPrice(p.pricePkr, currency) : 'N/A';
 
+      const badgeHtml = p.tag === 'trending'
+        ? `<span class="product-badge badge-trending">🔥 Trending</span>`
+        : p.tag === 'bestseller'
+        ? `<span class="product-badge badge-bestseller">⭐ Best Seller</span>`
+        : p.tag === 'new'
+        ? `<span class="product-badge badge-new">✨ New</span>`
+        : '';
+
       let imgHtml = hasMultiple
         ? `<div class="product-gallery">
+             ${badgeHtml}
              <img src="${p.mainImg}" class="main-image" crossorigin="anonymous">
              <div class="thumbnails">
                ${allImgs.map((src, i) => `<img src="${src}" class="thumb ${i === 0 ? 'active' : ''}" crossorigin="anonymous" onclick="changeImage(this)">`).join('')}
              </div>
            </div>`
-        : `<div class="card-img-wrap"><img src="${p.mainImg}" crossorigin="anonymous" alt="${p.name}"></div>`;
+        : `<div class="card-img-wrap">${badgeHtml}<img src="${p.mainImg}" crossorigin="anonymous" alt="${p.name}"></div>`;
 
       const card = document.createElement('div');
       card.className = 'card';
@@ -1926,6 +1978,8 @@
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
+      const tagEl = document.getElementById('ap-tag');
+      if (tagEl) tagEl.value = '';
       document.getElementById('thumb-fields').innerHTML    = '';
       document.getElementById('ap-edit-id').value          = '';
       document.getElementById('ap-submit-btn').textContent = 'Add to Collection';
