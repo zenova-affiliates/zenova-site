@@ -1712,24 +1712,7 @@
     if (loader) loader.style.display = 'none';
   });
 
-  function renderHomeGrid() {
-    const grid = document.getElementById('home-products');
-    if (!grid) return;
-    grid.querySelectorAll('.card[data-firestore]').forEach(c => c.remove());
-    const fsCards = window.firestoreProducts.map(p => {
-      const card = window.buildCard(p, p.id);
-      card.setAttribute('data-firestore', '1');
-      return card;
-    });
-    const staticCards = Array.from(grid.querySelectorAll('.card:not([data-firestore])'));
-    const all = [...staticCards, ...fsCards];
-    for (let i = all.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [all[i], all[j]] = [all[j], all[i]];
-    }
-    grid.innerHTML = '';
-    all.forEach(card => grid.appendChild(card));
-  }
+  
 
   function renderCategoryCards() {
     ['skincare', 'nails', 'hair'].forEach(section => {
@@ -1744,6 +1727,42 @@
           grid.appendChild(card);
         });
     });
+    function renderHomeGrid() {
+    const grid = document.getElementById('home-products');
+    if (!grid) return;
+
+    // Remove previously injected cards (both firestore and static-clones)
+    grid.querySelectorAll('.card[data-firestore], .card[data-static-clone]').forEach(c => c.remove());
+
+    // Clone static cards from skincare/nails/hair sections
+    const staticClones = [];
+    ['skincare-products', 'nails-products', 'hair-products'].forEach(secId => {
+      document.getElementById(secId)
+        ?.querySelectorAll('.card:not([data-firestore]):not([data-static-clone])')
+        .forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.setAttribute('data-static-clone', '1');
+          staticClones.push(clone);
+        });
+    });
+
+    // Build Firestore cards
+    const fsCards = window.firestoreProducts.map(p => {
+      const card = window.buildCard(p, p.id);
+      card.setAttribute('data-firestore', '1');
+      return card;
+    });
+
+    // Merge + shuffle
+    const all = [...staticClones, ...fsCards];
+    for (let i = all.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [all[i], all[j]] = [all[j], all[i]];
+    }
+
+    grid.innerHTML = '';
+    all.forEach(card => grid.appendChild(card));
+  }
   }
 
   window._fb.adminLogin = function () {
