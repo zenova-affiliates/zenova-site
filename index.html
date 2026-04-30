@@ -1919,7 +1919,7 @@
         thumbContainer.appendChild(wrap);
       });
 
-      switchAdminTab('add');
+      switchAdminTab('add', true);
     };
 
     // ── Delete Product ──
@@ -2095,14 +2095,14 @@
       document.getElementById('ap-submit-btn').textContent = 'Add to Collection';
     }
 
-    function switchAdminTab(tab) {
+    function switchAdminTab(tab, isEditing = false) {
       const tabs = document.querySelectorAll('.admin-tab');
       if (tab === 'add') {
         document.getElementById('tab-add').style.display  = '';
         document.getElementById('tab-edit').style.display = 'none';
         tabs[0].classList.add('active');
         tabs[1].classList.remove('active');
-        clearAdminForm();
+        if (!isEditing) clearAdminForm();
       } else {
         document.getElementById('tab-add').style.display  = 'none';
         document.getElementById('tab-edit').style.display = '';
